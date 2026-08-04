@@ -1,4 +1,49 @@
 -- ============================================================
+-- CLEANUP
+-- Safely removes the previous schema, allowing this file to be
+-- run repeatedly in Oracle SQL Developer / SQL*Plus.
+-- ============================================================
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE CUSTOMER_PORTFOLIO CASCADE CONSTRAINTS PURGE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE STOCK_TRANSACTION CASCADE CONSTRAINTS PURGE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE CUSTOMER CASCADE CONSTRAINTS PURGE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE STOCK CASCADE CONSTRAINTS PURGE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+-- ============================================================
 -- 1. STOCK TABLE
 -- ============================================================
 
