@@ -6,10 +6,11 @@ import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
 import { Customer, Portfolio, Stock, StockTransaction } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
+import { StockLogoComponent } from '../../shared/stock-logo.component';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [CurrencyPipe, DatePipe, DecimalPipe, RouterLink, IconComponent],
+  imports: [CurrencyPipe, DatePipe, DecimalPipe, RouterLink, IconComponent, StockLogoComponent],
   templateUrl: './dashboard.page.html',
   styleUrl: './dashboard.page.css',
 })
