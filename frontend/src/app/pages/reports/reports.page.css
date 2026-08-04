@@ -1,0 +1,44 @@
+.loading-line { margin-bottom: 16px; }
+.insight-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 15px; margin-bottom: 18px; }
+.insight-card { position: relative; min-height: 145px; overflow: hidden; padding: 20px; }
+.insight-card__label { display: block; margin-bottom: 12px; color: var(--muted); font-size: .67rem; font-weight: 650; }
+.insight-card > strong { display: block; max-width: calc(100% - 36px); overflow: hidden; color: var(--ink); font-family: 'Manrope', sans-serif; font-size: 1.55rem; letter-spacing: -.04em; text-overflow: ellipsis; white-space: nowrap; }
+.insight-card p { margin: 7px 0 0; color: var(--muted); font-size: .66rem; }
+.insight-card__icon { position: absolute; right: 16px; bottom: 16px; display: grid; width: 33px; height: 33px; place-items: center; border-radius: 9px; background: var(--accent-soft); color: var(--accent-dark); }
+.insight-card__icon app-icon { width: 16px; height: 16px; }
+.insight-card--hero { border-color: #223149; background: #111827; color: #fff; }
+.insight-card--hero .insight-card__label, .insight-card--hero p { color: #91a1b6; }
+.insight-card--hero > strong { color: #fff; }
+.insight-card--hero .insight-card__icon { background: rgb(45 212 191 / 12%); color: #5eead4; }
+.reports-layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(330px, .75fr); gap: 18px; align-items: start; }
+.ranking-card { overflow: hidden; }
+.ranking-list { padding: 10px 20px 17px; }
+.ranking-row { display: flex; align-items: center; gap: 13px; padding: 11px 0; }
+.rank { display: grid; flex: 0 0 auto; width: 27px; height: 27px; place-items: center; border-radius: 7px; background: #f0f3f7; color: #69788b; font-size: .65rem; font-weight: 750; }
+.ranking-row:first-child .rank { background: var(--accent-soft); color: var(--accent-dark); }
+.ranking-row__main { min-width: 0; flex: 1; }
+.ranking-row__labels { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 7px; font-size: .7rem; }
+.ranking-row__labels strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ranking-row__labels span { flex: 0 0 auto; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bar-track { height: 6px; overflow: hidden; border-radius: 100px; background: #edf1f5; }
+.bar-track > span { display: block; height: 100%; border-radius: inherit; background: var(--accent); transition: width 400ms ease; }
+.frequency-body { display: grid; gap: 20px; padding: 20px; }
+.frequency-row > div:first-child { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; color: var(--muted); font-size: .68rem; }
+.frequency-row strong { color: var(--ink); font-size: .75rem; }
+.frequency-dot { display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; }
+.frequency-dot--buy, .bar-track > .bar--buy { background: var(--success); }
+.frequency-dot--sell, .bar-track > .bar--sell { background: var(--danger); }
+.market-extremes { overflow: hidden; }
+.market-extremes__list { padding: 6px 19px 11px; }
+.market-extremes__list > div { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid #edf1f5; }
+.market-extremes__list > div:last-child { border-bottom: 0; }
+.market-icon { display: grid; width: 31px; height: 31px; place-items: center; border-radius: 8px; background: var(--info-soft); color: var(--info); }
+.market-icon app-icon { width: 15px; height: 15px; }
+.market-icon--up { background: var(--success-soft); color: var(--success); }
+.market-icon--down { background: var(--warning-soft); color: var(--warning); }
+.market-extremes__list small, .market-extremes__list strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.market-extremes__list small { color: var(--muted); font-size: .6rem; }
+.market-extremes__list strong { margin-top: 2px; font-size: .72rem; }
+.market-extremes__list b { color: #46566c; font-size: .67rem; white-space: nowrap; }
+@media (max-width: 1100px) { .insight-grid { grid-template-columns: repeat(2, 1fr); } .reports-layout { grid-template-columns: 1fr; } }
+@media (max-width: 560px) { .insight-grid { grid-template-columns: 1fr; } }

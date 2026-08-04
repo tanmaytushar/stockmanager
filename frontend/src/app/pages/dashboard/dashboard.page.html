@@ -1,0 +1,90 @@
+<section class="page">
+  <header class="page-header">
+    <div class="page-header__copy">
+      <span class="eyebrow">Overview</span>
+      <h1 class="page-title">Good to see you.</h1>
+      <p class="page-subtitle">A live summary of inventory, customers, holdings, and trading activity.</p>
+    </div>
+    <div class="page-actions">
+      <button class="button button--secondary" type="button" [disabled]="loading()" (click)="loadDashboard()">
+        <app-icon name="refresh" /> Refresh
+      </button>
+      <a class="button" routerLink="/trade"><app-icon name="swap" /> New trade</a>
+    </div>
+  </header>
+
+  @if (error()) {
+    <div class="notice notice--error" role="alert"><app-icon name="alert" /><span>{{ error() }}</span></div>
+  }
+
+  @if (loading()) {
+    <div class="loading-line" aria-label="Loading dashboard"></div>
+  } @else {
+    <div class="stat-grid">
+      <article class="card stat-card stat-card--teal">
+        <div class="stat-card__top"><div><p class="stat-card__label">Listed stocks</p><p class="stat-card__value">{{ stocks().length }}</p></div><span class="stat-icon"><app-icon name="chart" /></span></div>
+        <p class="stat-card__hint">Active instruments in inventory</p>
+      </article>
+      <article class="card stat-card stat-card--blue">
+        <div class="stat-card__top"><div><p class="stat-card__label">Customers</p><p class="stat-card__value">{{ customers().length }}</p></div><span class="stat-icon"><app-icon name="users" /></span></div>
+        <p class="stat-card__hint">Registered trading accounts</p>
+      </article>
+      <article class="card stat-card stat-card--amber">
+        <div class="stat-card__top"><div><p class="stat-card__label">Transactions</p><p class="stat-card__value">{{ transactions().length }}</p></div><span class="stat-icon"><app-icon name="receipt" /></span></div>
+        <p class="stat-card__hint">Recorded buy and sell orders</p>
+      </article>
+      <article class="card stat-card stat-card--violet">
+        <div class="stat-card__top"><div><p class="stat-card__label">Customer assets</p><p class="stat-card__value">{{ portfolioValue() | currency:'USD':'symbol':'1.0-0' }}</p></div><span class="stat-icon"><app-icon name="wallet" /></span></div>
+        <p class="stat-card__hint">Current portfolio market value</p>
+      </article>
+    </div>
+
+    <div class="two-column">
+      <article class="card">
+        <header class="card__header">
+          <div><h2>Recent transactions</h2><p>Latest recorded market activity</p></div>
+          <a class="link" routerLink="/transactions">View all <app-icon name="arrow-right" /></a>
+        </header>
+        @if (recentTransactions().length) {
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Transaction</th><th>Stock</th><th>Type</th><th class="numeric">Quantity</th><th class="numeric">Value</th><th>Date</th></tr></thead>
+              <tbody>
+                @for (transaction of recentTransactions(); track transaction.transactionId) {
+                  <tr>
+                    <td><span class="primary-cell">#{{ transaction.transactionId }}</span><span class="secondary-line">Customer {{ transaction.customerId }}</span></td>
+                    <td><span class="symbol"><span class="symbol__mark">{{ transaction.stockSymbol.slice(0, 2) }}</span>{{ transaction.stockSymbol }}</span></td>
+                    <td><span class="badge" [class.badge--buy]="transaction.transactionType === 'BUY'" [class.badge--sell]="transaction.transactionType === 'SELL'">{{ transaction.transactionType }}</span></td>
+                    <td class="numeric">{{ transaction.quantity | number }}</td>
+                    <td class="numeric primary-cell">{{ transaction.quantity * transaction.price | currency:'USD' }}</td>
+                    <td>{{ transaction.transactionDate | date:'MMM d, y' }}<span class="secondary-line">{{ transaction.transactionDate | date:'shortTime' }}</span></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        } @else {
+          <p class="empty-inline">No transactions have been recorded yet.</p>
+        }
+      </article>
+
+      <article class="card stock-watch">
+        <header class="card__header"><div><h2>Inventory watch</h2><p>Lowest available quantities</p></div><a class="link" routerLink="/stocks">Manage</a></header>
+        <div class="stock-watch__summary">
+          <span>Inventory market value</span>
+          <strong>{{ inventoryValue() | currency:'USD':'symbol':'1.0-0' }}</strong>
+        </div>
+        <div class="stock-watch__list">
+          @for (stock of lowStock(); track stock.stockSymbol) {
+            <div class="stock-watch__item">
+              <span class="symbol"><span class="symbol__mark">{{ stock.stockSymbol.slice(0, 2) }}</span><span>{{ stock.stockSymbol }}<small>{{ stock.stockName }}</small></span></span>
+              <span class="stock-watch__quantity">{{ stock.availableQuantity | number }}<small>available</small></span>
+            </div>
+          } @empty {
+            <p class="empty-inline">No stock inventory available.</p>
+          }
+        </div>
+      </article>
+    </div>
+  }
+</section>

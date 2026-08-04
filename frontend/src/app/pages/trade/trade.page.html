@@ -1,0 +1,84 @@
+<section class="page">
+  <header class="page-header">
+    <div class="page-header__copy"><span class="eyebrow">Market operations</span><h1 class="page-title">Place a trade</h1><p class="page-subtitle">Buy available shares or sell stock already held in a customer portfolio.</p></div>
+    <div class="page-actions"><a class="button button--secondary" routerLink="/transactions"><app-icon name="receipt" /> Transaction history</a></div>
+  </header>
+
+  @if (success()) { <div class="notice notice--success" role="status"><app-icon name="check" /><span>{{ success() }}</span></div> }
+  @if (error()) { <div class="notice notice--error" role="alert"><app-icon name="alert" /><span>{{ error() }}</span></div> }
+
+  <div class="trade-layout">
+    <article class="card trade-card">
+      <header class="card__header"><div><h2>Order details</h2><p>Choose the account, instrument, and quantity</p></div><span class="badge">Market order</span></header>
+      @if (loading()) {
+        <div class="state"><div><div class="state__icon"><app-icon name="refresh" /></div><h3>Loading trade options</h3><p>Retrieving customers and available stocks.</p></div></div>
+      } @else {
+        <form [formGroup]="tradeForm" (ngSubmit)="submitTrade()">
+          <div class="trade-card__body">
+            <div class="trade-toggle" aria-label="Transaction type">
+              <button type="button" [class.active]="tradeType() === 'BUY'" (click)="setTradeType('BUY')"><app-icon name="trending-up" /> Buy</button>
+              <button type="button" [class.active]="tradeType() === 'SELL'" (click)="setTradeType('SELL')"><app-icon name="trending-down" /> Sell</button>
+            </div>
+
+            <div class="form-field">
+              <label for="trade-customer">Customer account</label>
+              <select #customerSelect id="trade-customer" formControlName="customerId" (change)="onCustomerChange(customerSelect.value)">
+                <option [value]="0">Select a customer</option>
+                @for (customer of customers(); track customer.customerId) { <option [value]="customer.customerId">#{{ customer.customerId }} · {{ customer.customerName }}</option> }
+              </select>
+              @if (tradeForm.controls.customerId.touched && tradeForm.controls.customerId.invalid) { <span class="field-error">Select a customer account.</span> }
+            </div>
+
+            <div class="form-field">
+              <label for="trade-stock">Stock</label>
+              <select #stockSelect id="trade-stock" formControlName="stockSymbol" (change)="onStockChange(stockSelect.value)">
+                <option value="">Select a stock</option>
+                @for (stock of stocks(); track stock.stockSymbol) { <option [value]="stock.stockSymbol">{{ stock.stockSymbol }} · {{ stock.stockName }}</option> }
+              </select>
+              @if (tradeForm.controls.stockSymbol.touched && tradeForm.controls.stockSymbol.invalid) { <span class="field-error">Select a stock.</span> }
+            </div>
+
+            <div class="form-field">
+              <label for="trade-quantity">Quantity</label>
+              <input #quantityInput id="trade-quantity" type="number" formControlName="quantity" min="1" step="1" (input)="onQuantityChange(quantityInput.value)" />
+              @if (tradeForm.controls.quantity.touched && tradeForm.controls.quantity.invalid) { <span class="field-error">Enter a whole quantity of at least one.</span> }
+              @if (exceedsLimit() && selectedStock()) { <span class="field-error">{{ tradeType() === 'BUY' ? 'Only ' + selectedStock()!.availableQuantity + ' shares are available.' : 'This customer only owns ' + (selectedHolding()?.quantity ?? 0) + ' shares.' }}</span> }
+            </div>
+
+            @if (selectedStock()) {
+              <div class="order-summary">
+                <div><span>Market price</span><strong>{{ selectedStock()!.currentPrice | currency:'USD' }}</strong></div>
+                <div><span>{{ tradeType() === 'BUY' ? 'Available' : 'Customer owns' }}</span><strong>{{ tradeType() === 'BUY' ? (selectedStock()!.availableQuantity | number) : (selectedHolding()?.quantity ?? 0 | number) }}</strong></div>
+                <div class="order-summary__total"><span>Estimated order value</span><strong>{{ estimatedValue() | currency:'USD' }}</strong></div>
+              </div>
+            }
+          </div>
+          <footer class="trade-card__footer">
+            <p>Orders execute at the stock’s current price.</p>
+            <button class="button" type="submit" [disabled]="submitting() || tradeForm.invalid || exceedsLimit()">{{ submitting() ? 'Processing…' : (tradeType() === 'BUY' ? 'Confirm purchase' : 'Confirm sale') }}</button>
+          </footer>
+        </form>
+      }
+    </article>
+
+    <aside class="section-stack">
+      <article class="card context-card">
+        <header class="card__header"><div><h2>Account context</h2><p>Selected customer portfolio</p></div><app-icon name="briefcase" /></header>
+        @if (!selectedCustomer()) {
+          <div class="context-card__empty"><app-icon name="users" /><p>Select a customer to review their current holdings.</p></div>
+        } @else if (portfolioLoading()) {
+          <div class="context-card__empty"><p>Loading portfolio…</p></div>
+        } @else {
+          <div class="account-summary"><span class="person-mark">{{ selectedCustomer()!.customerName.slice(0, 2).toUpperCase() }}</span><div><strong>{{ selectedCustomer()!.customerName }}</strong><small>{{ selectedCustomer()!.emailAddress }}</small></div></div>
+          <div class="portfolio-total"><span>Total portfolio value</span><strong>{{ portfolio()?.totalAssetValue ?? 0 | currency:'USD' }}</strong></div>
+          <div class="holding-list">
+            @for (holding of portfolio()?.holdings ?? []; track holding.stockSymbol) {
+              <div><span><strong>{{ holding.stockSymbol }}</strong><small>{{ holding.quantity | number }} shares</small></span><strong>{{ holding.totalAssetValue | currency:'USD' }}</strong></div>
+            } @empty { <p class="empty-inline">This customer has no holdings.</p> }
+          </div>
+        }
+      </article>
+      <div class="trade-note"><span class="trade-note__icon"><app-icon name="check" /></span><div><strong>Atomic transactions</strong><p>Inventory, portfolio holdings, and transaction history update together when an order succeeds.</p></div></div>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+<section class="page">
+  <header class="page-header">
+    <div class="page-header__copy"><span class="eyebrow">Audit trail</span><h1 class="page-title">Transactions</h1><p class="page-subtitle">Every completed purchase and sale, recorded with execution price and time.</p></div>
+    <div class="page-actions"><button class="button button--secondary" type="button" [disabled]="loading()" (click)="loadTransactions()"><app-icon name="refresh" /> Refresh</button><a class="button" routerLink="/trade"><app-icon name="swap" /> New trade</a></div>
+  </header>
+
+  @if (error()) { <div class="notice notice--error" role="alert"><app-icon name="alert" /><span>{{ error() }}</span></div> }
+
+  @if (!loading()) {
+    <div class="transaction-stats">
+      <div><span>All transactions</span><strong>{{ transactions().length | number }}</strong></div>
+      <div><span class="dot dot--buy"></span><span>Buy orders</span><strong>{{ buyCount() | number }}</strong></div>
+      <div><span class="dot dot--sell"></span><span>Sell orders</span><strong>{{ sellCount() | number }}</strong></div>
+      <div><span>Gross traded value</span><strong>{{ tradedValue() | currency:'USD':'symbol':'1.0-0' }}</strong></div>
+    </div>
+  }
+
+  <article class="card data-card">
+    <div class="toolbar">
+      <label class="search-box"><span class="visually-hidden">Search transactions</span><app-icon name="search" /><input #search type="search" placeholder="Search stock, customer, or ID…" [value]="query()" (input)="updateQuery(search.value)" /></label>
+      <label class="filter-select"><span class="visually-hidden">Filter transaction type</span><select #typeSelect [value]="typeFilter()" (change)="updateType(typeSelect.value)"><option value="ALL">All types</option><option value="BUY">Buy only</option><option value="SELL">Sell only</option></select></label>
+      <span class="toolbar__count">{{ filteredTransactions().length }} results</span>
+    </div>
+
+    @if (loading()) {
+      <div class="state"><div><div class="state__icon"><app-icon name="refresh" /></div><h3>Loading transactions</h3><p>Retrieving the transaction ledger.</p></div></div>
+    } @else if (!filteredTransactions().length) {
+      <div class="state"><div><div class="state__icon"><app-icon name="receipt" /></div><h3>{{ transactions().length ? 'No matching transactions' : 'No transactions yet' }}</h3><p>{{ transactions().length ? 'Adjust the search or transaction-type filter.' : 'Completed buy and sell orders will appear here.' }}</p>@if (!transactions().length) { <a class="button" routerLink="/trade">Place a trade</a> }</div></div>
+    } @else {
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Transaction</th><th>Customer</th><th>Stock</th><th>Type</th><th class="numeric">Quantity</th><th class="numeric">Execution price</th><th class="numeric">Total value</th><th>Date & time</th></tr></thead>
+          <tbody>
+            @for (transaction of pageItems(); track transaction.transactionId) {
+              <tr>
+                <td class="primary-cell">#{{ transaction.transactionId }}</td>
+                <td><span class="primary-cell">{{ transaction.customerName || 'Customer #' + transaction.customerId }}</span><span class="secondary-line">ID {{ transaction.customerId }}</span></td>
+                <td><span class="symbol"><span class="symbol__mark">{{ transaction.stockSymbol.slice(0, 2) }}</span><span>{{ transaction.stockSymbol }}@if (transaction.stockName) { <small class="secondary-line">{{ transaction.stockName }}</small> }</span></span></td>
+                <td><span class="badge" [class.badge--buy]="transaction.transactionType === 'BUY'" [class.badge--sell]="transaction.transactionType === 'SELL'">{{ transaction.transactionType }}</span></td>
+                <td class="numeric">{{ transaction.quantity | number }}</td>
+                <td class="numeric">{{ transaction.price | currency:'USD' }}</td>
+                <td class="numeric primary-cell">{{ transaction.quantity * transaction.price | currency:'USD' }}</td>
+                <td>{{ transaction.transactionDate | date:'MMM d, y' }}<span class="secondary-line">{{ transaction.transactionDate | date:'mediumTime' }}</span></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination"><p>Showing {{ firstItem() }}–{{ lastItem() }} of {{ filteredTransactions().length }}</p><div class="pagination__controls"><button class="icon-button" type="button" aria-label="Previous page" [disabled]="page() <= 1" (click)="previousPage()"><app-icon name="chevron-left" /></button><span>Page {{ page() }} of {{ totalPages() }}</span><button class="icon-button" type="button" aria-label="Next page" [disabled]="page() >= totalPages()" (click)="nextPage()"><app-icon name="chevron-right" /></button></div></div>
+    }
+  </article>
+</section>

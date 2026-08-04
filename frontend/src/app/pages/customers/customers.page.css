@@ -1,0 +1,6 @@
+.data-card { overflow: hidden; }
+.notice { margin-bottom: 16px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.customer-cell { display: inline-flex; align-items: center; gap: 10px; }
+.email-link { color: #52637a; text-decoration: none; }
+.email-link:hover { color: var(--accent-dark); text-decoration: underline; }

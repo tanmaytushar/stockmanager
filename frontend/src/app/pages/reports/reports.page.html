@@ -1,0 +1,81 @@
+<section class="page">
+  <header class="page-header">
+    <div class="page-header__copy"><span class="eyebrow">Analytics</span><h1 class="page-title">Reports</h1><p class="page-subtitle">Portfolio rankings, trading patterns, and market inventory insights.</p></div>
+    <div class="page-actions"><button class="button button--secondary" type="button" [disabled]="loading()" (click)="loadReports()"><app-icon name="refresh" /> Refresh reports</button></div>
+  </header>
+
+  @if (error()) { <div class="notice notice--error" role="alert"><app-icon name="alert" /><span>{{ error() }}</span></div> }
+  @if (loading()) {
+    <div class="loading-line" aria-label="Loading reports"></div>
+    <div class="card state"><div><div class="state__icon"><app-icon name="report" /></div><h3>Building reports</h3><p>Aggregating portfolio values and transaction activity.</p></div></div>
+  } @else if (unavailable()) {
+    <div class="card state"><div><div class="state__icon"><app-icon name="alert" /></div><h3>Reports are unavailable</h3><p>The report endpoints did not return data. Make sure the latest backend is running, then refresh.</p><button class="button" type="button" (click)="loadReports()">Try again</button></div></div>
+  } @else {
+    <div class="insight-grid">
+      <article class="card insight-card insight-card--hero">
+        <span class="insight-card__label">Total customer assets</span>
+        <strong>{{ reports()?.totalAssetValue?.totalAssetValue ?? 0 | currency:'USD':'symbol':'1.0-0' }}</strong>
+        <p>Across {{ reports()?.portfolios?.length ?? 0 }} customer portfolios</p>
+        <span class="insight-card__icon"><app-icon name="wallet" /></span>
+      </article>
+      <article class="card insight-card">
+        <span class="insight-card__label">Highest-priced stock</span>
+        <strong>{{ reports()?.highestPricedStock?.stockSymbol || '—' }}</strong>
+        <p>{{ reports()?.highestPricedStock?.currentPrice ?? 0 | currency:'USD' }} per share</p>
+        <span class="insight-card__icon"><app-icon name="trending-up" /></span>
+      </article>
+      <article class="card insight-card">
+        <span class="insight-card__label">Most frequently traded</span>
+        <strong>{{ reports()?.mostTradedStock?.stockSymbol || '—' }}</strong>
+        <p>{{ reports()?.mostTradedStock?.tradeCount ?? 0 | number }} recorded trades</p>
+        <span class="insight-card__icon"><app-icon name="swap" /></span>
+      </article>
+      <article class="card insight-card">
+        <span class="insight-card__label">Dominant order type</span>
+        <strong>{{ reports()?.transactionFrequency?.mostFrequentType || '—' }}</strong>
+        <p>{{ (reports()?.transactionFrequency?.buyCount ?? 0) + (reports()?.transactionFrequency?.sellCount ?? 0) | number }} total orders</p>
+        <span class="insight-card__icon"><app-icon name="receipt" /></span>
+      </article>
+    </div>
+
+    <div class="reports-layout">
+      <article class="card ranking-card">
+        <header class="card__header"><div><h2>Portfolio value ranking</h2><p>Customer holdings at current market prices</p></div><span class="badge">Live valuation</span></header>
+        @if (rankedPortfolios().length) {
+          <div class="ranking-list">
+            @for (portfolio of rankedPortfolios(); track portfolio.customerId; let index = $index) {
+              <div class="ranking-row">
+                <span class="rank">{{ index + 1 }}</span>
+                <div class="ranking-row__main">
+                  <div class="ranking-row__labels"><strong>{{ portfolio.customerName }}</strong><span>{{ portfolio.totalAssetValue | currency:'USD' }}</span></div>
+                  <div class="bar-track"><span [style.width.%]="portfolioWidth(portfolio.totalAssetValue)"></span></div>
+                </div>
+              </div>
+            }
+          </div>
+        } @else { <p class="empty-inline">No portfolio valuation data is available.</p> }
+      </article>
+
+      <div class="section-stack">
+        <article class="card frequency-card">
+          <header class="card__header"><div><h2>BUY vs SELL</h2><p>Transaction type frequency</p></div></header>
+          @if (reports()?.transactionFrequency; as frequency) {
+            <div class="frequency-body">
+              <div class="frequency-row"><div><span><i class="frequency-dot frequency-dot--buy"></i>BUY</span><strong>{{ frequency.buyCount | number }}</strong></div><div class="bar-track"><span class="bar--buy" [style.width.%]="frequencyWidth(frequency.buyCount)"></span></div></div>
+              <div class="frequency-row"><div><span><i class="frequency-dot frequency-dot--sell"></i>SELL</span><strong>{{ frequency.sellCount | number }}</strong></div><div class="bar-track"><span class="bar--sell" [style.width.%]="frequencyWidth(frequency.sellCount)"></span></div></div>
+            </div>
+          } @else { <p class="empty-inline">No transaction frequency data.</p> }
+        </article>
+
+        <article class="card market-extremes">
+          <header class="card__header"><div><h2>Market highlights</h2><p>Notable values from current activity</p></div></header>
+          <div class="market-extremes__list">
+            <div><span class="market-icon market-icon--up"><app-icon name="trending-up" /></span><span><small>Highest portfolio</small><strong>{{ reports()?.highestPortfolio?.customerName || 'No data' }}</strong></span><b>{{ reports()?.highestPortfolio?.totalAssetValue ?? 0 | currency:'USD' }}</b></div>
+            <div><span class="market-icon market-icon--down"><app-icon name="trending-down" /></span><span><small>Lowest portfolio</small><strong>{{ reports()?.lowestPortfolio?.customerName || 'No data' }}</strong></span><b>{{ reports()?.lowestPortfolio?.totalAssetValue ?? 0 | currency:'USD' }}</b></div>
+            <div><span class="market-icon"><app-icon name="chart" /></span><span><small>Least frequently traded</small><strong>{{ reports()?.leastTradedStock?.stockSymbol || 'No data' }}</strong></span><b>{{ reports()?.leastTradedStock?.tradeCount ?? 0 | number }} trades</b></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  }
+</section>
