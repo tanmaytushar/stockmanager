@@ -93,6 +93,8 @@
 .topbar__right { display: flex; align-items: center; gap: 14px; }
 .environment-pill { padding: 5px 9px; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font-size: .68rem; font-weight: 650; }
 .avatar { display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; background: #e7edf5; color: #40516a; font-size: .69rem; font-weight: 750; }
+.logout-button { padding: 6px 9px; border: 0; background: transparent; color: var(--muted); font-size: .7rem; font-weight: 700; }
+.logout-button:hover { color: var(--danger); }
 .page-content { width: min(1440px, 100%); margin: 0 auto; padding: 34px; }
 .mobile-menu, .scrim { display: none; }
 

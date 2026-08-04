@@ -4,6 +4,16 @@
 -- run repeatedly in Oracle SQL Developer / SQL*Plus.
 -- ============================================================
 BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE ADMIN_CREDENTIAL CASCADE CONSTRAINTS PURGE';
+EXCEPTION
+    WHEN OTHERS THEN
+        IF SQLCODE != -942 THEN
+            RAISE;
+        END IF;
+END;
+/
+
+BEGIN
     EXECUTE IMMEDIATE 'DROP TABLE CUSTOMER_PORTFOLIO CASCADE CONSTRAINTS PURGE';
 EXCEPTION
     WHEN OTHERS THEN
@@ -125,6 +135,16 @@ CREATE TABLE CUSTOMER_PORTFOLIO (
         CHECK (QUANTITY > 0)
 );
 
+-- ============================================================
+-- 5. ADMIN CREDENTIAL TABLE
+-- Passwords are stored only as BCrypt hashes.
+-- ============================================================
+
+CREATE TABLE ADMIN_CREDENTIAL (
+    USERNAME VARCHAR2(50) PRIMARY KEY,
+    PASSWORD_HASH VARCHAR2(100) NOT NULL
+);
+
 -- Index foreign-key columns used by transaction and portfolio queries.
 CREATE INDEX IDX_TRANSACTION_CUSTOMER
     ON STOCK_TRANSACTION (CUSTOMER_ID);
@@ -134,6 +154,11 @@ CREATE INDEX IDX_TRANSACTION_STOCK
 
 CREATE INDEX IDX_PORTFOLIO_STOCK
     ON CUSTOMER_PORTFOLIO (STOCK_SYMBOL);
+
+-- Initial local admin login: admin / Admin@123
+-- Change this credential before using the application outside local development.
+INSERT INTO ADMIN_CREDENTIAL (USERNAME, PASSWORD_HASH)
+VALUES ('admin', '$2a$12$4vGGRn.vpMn6HdCKJ/TDSu7N5FSmH0ib.8A8cq6rCDXQhNp7vZSo6');
 
 -- ============================================================
 -- SAMPLE STOCK DATA
@@ -245,6 +270,7 @@ SELECT * FROM STOCK;
 SELECT * FROM CUSTOMER;
 SELECT * FROM STOCK_TRANSACTION;
 SELECT * FROM CUSTOMER_PORTFOLIO;
+SELECT USERNAME FROM ADMIN_CREDENTIAL;
 
 -- Portfolio details with current asset value
 SELECT

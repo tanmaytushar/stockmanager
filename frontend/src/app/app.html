@@ -1,3 +1,4 @@
+@if (auth.authenticated()) {
 <div class="app-shell">
   <aside class="sidebar" [class.sidebar--open]="menuOpen()">
     <a class="brand" routerLink="/dashboard" (click)="closeMenu()" aria-label="Stock Manager home">
@@ -53,6 +54,7 @@
       <div class="topbar__right">
         <span class="environment-pill">Development</span>
         <span class="avatar" aria-label="Administrator">AD</span>
+        <button class="logout-button" type="button" (click)="logout()">Log out</button>
       </div>
     </header>
 
@@ -61,3 +63,6 @@
     </main>
   </div>
 </div>
+} @else {
+  <router-outlet />
+}

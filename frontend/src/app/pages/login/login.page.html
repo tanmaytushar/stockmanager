@@ -1,0 +1,56 @@
+<main class='login-page'>
+  <section class='login-card' aria-labelledby='login-title'>
+    <div class='login-brand' aria-label='Stock Manager'>
+      <span class='login-brand__mark' aria-hidden='true'>S</span>
+      <span>
+        <strong>Stock Manager</strong>
+        <small>Administrator access</small>
+      </span>
+    </div>
+
+    <div class='login-copy'>
+      <span class='eyebrow'>Secure workspace</span>
+      <h1 id='login-title'>Sign in to continue</h1>
+      <p>Enter your administrator username and password to access the application.</p>
+    </div>
+
+    @if (error()) {
+      <div class='notice notice--error' role='alert'>{{ error() }}</div>
+    }
+
+    <form [formGroup]='loginForm' (ngSubmit)='login()' novalidate>
+      <div class='form-field'>
+        <label for='username'>Username</label>
+        <input
+          id='username'
+          type='text'
+          formControlName='username'
+          autocomplete='username'
+          maxlength='50'
+          autofocus
+        />
+        @if (loginForm.controls.username.touched && loginForm.controls.username.invalid) {
+          <span class='field-error'>Username is required.</span>
+        }
+      </div>
+
+      <div class='form-field'>
+        <label for='password'>Password</label>
+        <input
+          id='password'
+          type='password'
+          formControlName='password'
+          autocomplete='current-password'
+          maxlength='200'
+        />
+        @if (loginForm.controls.password.touched && loginForm.controls.password.invalid) {
+          <span class='field-error'>Password is required.</span>
+        }
+      </div>
+
+      <button class='button button--full' type='submit' [disabled]='submitting()'>
+        {{ submitting() ? 'Signing in...' : 'Sign in' }}
+      </button>
+    </form>
+  </section>
+</main>
