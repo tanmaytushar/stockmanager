@@ -29,7 +29,7 @@ Install the following before starting the project:
 - Git
 - Java JDK 17
 - Node.js 22.22.3+ (or another version accepted by the Angular packages) and npm
-- Oracle Database (the default Oracle Free pluggable-database service `FREEPDB1` is used in the example)
+- Oracle Database (local service `FREE` is used for this training setup)
 - Oracle SQL Developer or another Oracle SQL client
 
 Verify Java is version 17:
@@ -47,21 +47,13 @@ cd stockmanager
 
 ## 2. Create the database schema
 
-1. Start your local Oracle Database and connect to the `FREEPDB1` pluggable-database service as `SYSTEM` in Oracle SQL Developer.
-2. Create a dedicated application user (choose your own strong password):
-
-```sql
-CREATE USER STOCK_MANAGER IDENTIFIED BY your_secure_password;
-GRANT CREATE SESSION, CREATE TABLE TO STOCK_MANAGER;
-ALTER USER STOCK_MANAGER QUOTA UNLIMITED ON USERS;
-```
-
-3. Disconnect from `SYSTEM` and create a new SQL Developer connection for `STOCK_MANAGER` using the `FREEPDB1` service.
-4. Open `sqlscript.sql` using that new connection.
-5. Run the whole script with **F5** (Run Script).
+1. Start your local Oracle Database.
+2. Connect to the `FREE` service as `SYSTEM` in Oracle SQL Developer.
+3. Open `sqlscript.sql` using that connection.
+4. Run the whole script with **F5** (Run Script).
 
 The script removes and recreates the application tables, then inserts sample data. Running it again resets that data.
-For safety, the script refuses to run while connected as `SYS` or `SYSTEM`.
+Only use this `SYSTEM` configuration for a local training database. The script drops and recreates its application tables.
 
 ## 3. Configure backend environment variables
 
@@ -76,12 +68,12 @@ notepad .env
 Set the values in `.env` for your own Oracle database:
 
 ```properties
-DB_URL=jdbc:oracle:thin:@localhost:1521/FREEPDB1
-DB_USERNAME=STOCK_MANAGER
+DB_URL=jdbc:oracle:thin:@localhost:1521/FREE
+DB_USERNAME=SYSTEM
 DB_PASSWORD=your_oracle_password
 ```
 
-Update `FREEPDB1` if your installation uses a different pluggable-database service, such as `XEPDB1`.
+Update `FREE` only if your Oracle installation uses a different service name.
 
 ## 4. Start the backend
 
@@ -154,6 +146,6 @@ npm run build
 ## Security
 
 - Never commit `backend/.env` or database passwords.
-- Never connect the application or run `sqlscript.sql` as `SYS` or `SYSTEM`.
+- The included `SYSTEM` setup is for local training only; use a dedicated application user outside this environment.
 - Commit only `backend/.env.example`, which contains placeholders.
 - Each developer should create their own `.env` file with their local credentials.
