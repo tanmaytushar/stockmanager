@@ -37,7 +37,7 @@
               <tr>
                 <td><span class="symbol"><app-stock-logo [symbol]="stock.stockSymbol" />{{ stock.stockSymbol }}</span></td>
                 <td class="primary-cell">{{ stock.stockName }}</td>
-                <td class="numeric primary-cell">{{ stock.currentPrice | currency:'USD' }}</td>
+                <td class="numeric primary-cell" [class.price--up]="priceDirections()[stock.stockSymbol] === 'up'" [class.price--down]="priceDirections()[stock.stockSymbol] === 'down'">{{ stock.currentPrice | currency:'USD' }}</td>
                 <td class="numeric"><span class="badge" [class.badge--low]="stock.availableQuantity < 10">{{ stock.availableQuantity | number }}</span></td>
                 <td class="actions-cell">
                   <button class="icon-button" type="button" [attr.aria-label]="'Edit ' + stock.stockSymbol" (click)="openEdit(stock)"><app-icon name="edit" /></button>

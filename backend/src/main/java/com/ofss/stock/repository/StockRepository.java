@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface StockRepository extends JpaRepository<Stock, String> {
@@ -19,4 +20,8 @@ public interface StockRepository extends JpaRepository<Stock, String> {
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select s from Stock s where s.stockSymbol = :symbol")
     Optional<Stock> findBySymbolForUpdate(@Param("symbol") String symbol);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select s from Stock s order by s.stockSymbol")
+    List<Stock> findAllForPriceUpdate();
 }
