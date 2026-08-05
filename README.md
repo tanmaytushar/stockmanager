@@ -71,6 +71,10 @@ Set the values in `.env` for your own Oracle database:
 DB_URL=jdbc:oracle:thin:@localhost:1521/FREE
 DB_USERNAME=SYSTEM
 DB_PASSWORD=your_oracle_password
+# Optional: enables the in-app AI assistant
+GROQ_API_KEY=your_groq_api_key
+# Optional; this is the default model if omitted
+GROQ_MODEL=llama-3.3-70b-versatile
 ```
 
 Update `FREE` only if your Oracle installation uses a different service name.
@@ -119,6 +123,7 @@ Open `http://localhost:4200` in a browser.
 | View portfolios | `GET /api/portfolios` |
 | View one portfolio | `GET /api/portfolios/{customerId}` |
 | View reports | `GET /api/reports/*` |
+| Ask the AI assistant | `POST /api/assistant/chat` |
 
 ## Run automated checks
 
@@ -149,3 +154,4 @@ npm run build
 - The included `SYSTEM` setup is for local training only; use a dedicated application user outside this environment.
 - Commit only `backend/.env.example`, which contains placeholders.
 - Each developer should create their own `.env` file with their local credentials.
+- The Groq key is sent only from the backend to Groq; never expose it in the Angular app or commit it.

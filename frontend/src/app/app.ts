@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { AuthService } from './core/auth.service';
 import { IconComponent, IconName } from './shared/icon.component';
+import { AssistantChatComponent } from './shared/assistant-chat.component';
 
 interface NavItem {
   label: string;
@@ -11,7 +12,7 @@ interface NavItem {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, IconComponent],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet, IconComponent, AssistantChatComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

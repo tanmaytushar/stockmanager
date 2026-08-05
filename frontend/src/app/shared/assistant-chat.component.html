@@ -1,0 +1,59 @@
+@if (open()) {
+  <section class="assistant-panel" aria-label="AI workspace assistant">
+    <header class="assistant-panel__header">
+      <div>
+        <span class="assistant-panel__eyebrow">AI assistant</span>
+        <h2>Stock Manager Copilot</h2>
+      </div>
+      <button type="button" class="assistant-close" aria-label="Close assistant" (click)="toggle()">
+        <app-icon name="close" />
+      </button>
+    </header>
+
+    <div class="assistant-disclaimer">Answers use the data in this workspace and are not investment advice.</div>
+    <div class="assistant-messages" aria-live="polite">
+      @for (message of messages(); track $index) {
+        <div class="message" [class.message--user]="message.role === 'user'">
+          <span>{{ message.role === 'assistant' ? readableText(message.text) : message.text }}</span>
+        </div>
+      }
+      @if (loading()) {
+        <div class="message message--typing"><span></span><span></span><span></span></div>
+      }
+      @if (pendingTrade(); as trade) {
+        <section class="trade-confirmation">
+          <span class="trade-confirmation__eyebrow">Confirmation required</span>
+          <strong>{{ trade.type === 'BUY' ? 'Buy' : 'Sell' }} {{ trade.quantity }} {{ trade.stockSymbol }}</strong>
+          <span>Customer #{{ trade.customerId }}</span>
+          <p>This will be recorded immediately at the current stock price.</p>
+          <div class="trade-confirmation__actions">
+            <button type="button" class="trade-cancel" (click)="cancelTrade()" [disabled]="submittingTrade()">Cancel</button>
+            <button type="button" class="trade-confirm" (click)="confirmTrade()" [disabled]="submittingTrade()">
+              {{ submittingTrade() ? 'Submitting…' : 'Confirm trade' }}
+            </button>
+          </div>
+        </section>
+      }
+    </div>
+
+    <form class="assistant-composer" (ngSubmit)="send()">
+      <textarea
+        [ngModel]="draft()"
+        (ngModelChange)="draft.set($event)"
+        name="assistantMessage"
+        rows="2"
+        maxlength="2000"
+        placeholder="Ask about stocks, portfolios, or activity…"
+        [disabled]="loading()"
+      ></textarea>
+      <button type="submit" class="assistant-send" [disabled]="!draft().trim() || loading()">
+        Send
+      </button>
+    </form>
+  </section>
+}
+
+<button type="button" class="assistant-launcher" [class.assistant-launcher--open]="open()" (click)="toggle()" [attr.aria-expanded]="open()" aria-label="Open AI assistant">
+  <span class="assistant-launcher__spark">✦</span>
+  <span>Ask AI</span>
+</button>

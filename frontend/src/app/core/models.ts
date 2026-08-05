@@ -76,6 +76,18 @@ export interface ApiProblem {
   validationErrors?: Record<string, string>;
 }
 
+export interface AssistantChatResponse {
+  reply: string;
+  tradeProposal: AssistantTradeProposal | null;
+}
+
+export interface AssistantTradeProposal {
+  type: TransactionType;
+  customerId: number;
+  stockSymbol: string;
+  quantity: number;
+}
+
 export interface ReportBundle {
   portfolios: Portfolio[] | null;
   highestPortfolio: Portfolio | null;

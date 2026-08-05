@@ -4,6 +4,7 @@ import { catchError, forkJoin, Observable, of, throwError } from 'rxjs';
 import { API_BASE_URL } from './api.config';
 import {
   ApiProblem,
+  AssistantChatResponse,
   Customer,
   CustomerInput,
   Portfolio,
@@ -96,6 +97,11 @@ export class ApiService {
       transactionFrequency: this.http.get<TransactionTypeFrequency>(`${this.baseUrl}/reports/transaction-type-frequency`).pipe(catchError(() => of(null))),
       totalAssetValue: this.http.get<TotalAssetValue>(`${this.baseUrl}/reports/total-asset-value`).pipe(catchError(() => of(null))),
     });
+  }
+
+  chatWithAssistant(message: string): Observable<AssistantChatResponse> {
+    return this.http.post<AssistantChatResponse>(`${this.baseUrl}/assistant/chat`, { message })
+      .pipe(catchError(this.handleError));
   }
 
   private readonly handleError = (error: HttpErrorResponse): Observable<never> => {

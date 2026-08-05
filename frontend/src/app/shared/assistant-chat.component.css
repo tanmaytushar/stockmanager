@@ -1,0 +1,27 @@
+:host { position: fixed; right: 26px; bottom: 24px; z-index: 60; }
+.assistant-launcher { display: inline-flex; min-height: 46px; align-items: center; gap: 8px; padding: 0 16px; border: 0; border-radius: 999px; background: #0f766e; color: #fff; box-shadow: 0 12px 28px rgb(15 118 110 / 28%); font-size: .77rem; font-weight: 750; }
+.assistant-launcher:hover, .assistant-launcher--open { background: #115e59; transform: translateY(-1px); }
+.assistant-launcher__spark { font-size: 1.1rem; }
+.assistant-panel { position: absolute; right: 0; bottom: 58px; display: grid; width: min(390px, calc(100vw - 28px)); height: min(560px, calc(100dvh - 108px)); grid-template-rows: auto auto minmax(0, 1fr) auto; overflow: hidden; border: 1px solid #d9e3e7; border-radius: 16px; background: #fff; box-shadow: 0 24px 64px rgb(15 23 42 / 24%); animation: panel-in 160ms ease both; }
+.assistant-panel__header { display: flex; align-items: flex-start; justify-content: space-between; padding: 18px 18px 13px; border-bottom: 1px solid #edf1f5; }
+.assistant-panel__eyebrow { color: #0f766e; font-size: .62rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
+.assistant-panel h2 { margin: 4px 0 0; color: #172033; font-family: Manrope, sans-serif; font-size: .94rem; }
+.assistant-close { display: grid; width: 30px; height: 30px; place-items: center; border: 0; border-radius: 7px; background: transparent; color: #718198; }
+.assistant-close:hover { background: #f1f5f9; color: #172033; }
+.assistant-close app-icon { width: 17px; height: 17px; }
+.assistant-disclaimer { padding: 9px 18px; border-bottom: 1px solid #edf1f5; background: #f8fafc; color: #718198; font-size: .64rem; line-height: 1.4; }
+.assistant-messages { display: grid; align-content: start; gap: 10px; overflow-y: auto; padding: 15px; background: #fbfcfe; }
+.message { width: fit-content; max-width: 88%; padding: 10px 12px; border-radius: 4px 12px 12px; background: #e8f8f6; color: #284250; font-size: .74rem; line-height: 1.5; white-space: pre-wrap; }
+.message--user { justify-self: end; border-radius: 12px 4px 12px 12px; background: #0f766e; color: #fff; }
+.message--typing { display: flex; gap: 4px; align-items: center; min-width: 54px; }
+.message--typing span { width: 5px; height: 5px; border-radius: 50%; background: #5b8d89; animation: bounce 900ms infinite alternate; }
+.message--typing span:nth-child(2) { animation-delay: 160ms; }.message--typing span:nth-child(3) { animation-delay: 320ms; }
+.trade-confirmation { display: grid; gap: 5px; padding: 13px; border: 1px solid #b8e3dc; border-radius: 10px; background: #f0fbf9; color: #284250; font-size: .72rem; }
+.trade-confirmation__eyebrow { color: #0f766e; font-size: .61rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }.trade-confirmation strong { color: #172033; font-size: .82rem; }.trade-confirmation p { margin: 2px 0 4px; color: #5d6d81; font-size: .67rem; line-height: 1.45; }
+.trade-confirmation__actions { display: flex; justify-content: flex-end; gap: 7px; }.trade-confirmation__actions button { min-height: 31px; padding: 0 9px; border-radius: 7px; font-size: .67rem; font-weight: 750; }.trade-cancel { border: 1px solid #cbd5e1; background: #fff; color: #526176; }.trade-confirm { border: 1px solid #0f766e; background: #0f766e; color: #fff; }
+.assistant-composer { display: flex; gap: 8px; padding: 12px; border-top: 1px solid #edf1f5; background: #fff; }
+.assistant-composer textarea { min-height: 43px; flex: 1; resize: none; padding: 9px 10px; border: 1px solid #cbd5e1; border-radius: 8px; color: #172033; font-size: .73rem; outline: none; }.assistant-composer textarea:focus { border-color: #0f9f98; box-shadow: 0 0 0 3px rgb(15 159 152 / 10%); }
+.assistant-send { align-self: end; min-height: 38px; padding: 0 11px; border: 0; border-radius: 8px; background: #0f766e; color: #fff; font-size: .69rem; font-weight: 750; }.assistant-send:disabled { opacity: .5; }
+@keyframes panel-in { from { opacity: 0; transform: translateY(8px) scale(.98); } }
+@keyframes bounce { to { transform: translateY(-3px); opacity: .45; } }
+@media (max-width: 700px) { :host { right: 14px; bottom: 14px; }.assistant-panel { bottom: 56px; }.assistant-launcher { min-height: 42px; } }
