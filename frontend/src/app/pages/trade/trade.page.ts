@@ -1,8 +1,9 @@
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, interval, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
 import { Customer, Portfolio, Stock, TradeRequest, TransactionType } from '../../core/models';
@@ -17,6 +18,7 @@ import { IconComponent } from '../../shared/icon.component';
 export class TradePage {
   private readonly api = inject(ApiService);
   private readonly fb = inject(FormBuilder);
+  private readonly destroyRef = inject(DestroyRef);
 
   protected readonly customers = signal<Customer[]>([]);
   protected readonly stocks = signal<Stock[]>([]);
@@ -48,7 +50,16 @@ export class TradePage {
       : amount > (this.selectedHolding()?.quantity ?? 0);
   });
 
-  constructor() { this.loadOptions(); }
+  constructor() {
+    this.loadOptions();
+    interval(1_000).pipe(
+      switchMap(() => this.api.getStocks()),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (stocks) => this.stocks.set(stocks),
+      error: (error: Error) => this.error.set(error.message),
+    });
+  }
 
   protected loadOptions(): void {
     this.loading.set(true);

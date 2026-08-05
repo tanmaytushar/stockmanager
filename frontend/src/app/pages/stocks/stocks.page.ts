@@ -1,6 +1,8 @@
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { interval, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
 import { Stock, StockInput } from '../../core/models';
@@ -16,9 +18,11 @@ import { StockLogoComponent } from '../../shared/stock-logo.component';
 export class StocksPage {
   private readonly api = inject(ApiService);
   private readonly fb = inject(FormBuilder);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly pageSize = 8;
 
   protected readonly stocks = signal<Stock[]>([]);
+  protected readonly priceDirections = signal<Record<string, 'up' | 'down'>>({});
   protected readonly query = signal('');
   protected readonly page = signal(1);
   protected readonly loading = signal(true);
@@ -54,15 +58,37 @@ export class StocksPage {
 
   constructor() {
     this.loadStocks();
+    interval(1_000).pipe(
+      switchMap(() => this.api.getStocks()),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (stocks) => this.applyStocks(stocks, true),
+      error: (error: Error) => this.error.set(error.message),
+    });
   }
 
   protected loadStocks(): void {
     this.loading.set(true);
     this.error.set('');
     this.api.getStocks().pipe(finalize(() => this.loading.set(false))).subscribe({
-      next: (stocks) => this.stocks.set(stocks),
+      next: (stocks) => this.applyStocks(stocks, false),
       error: (error: Error) => this.error.set(error.message),
     });
+  }
+
+  private applyStocks(stocks: Stock[], trackPriceChanges: boolean): void {
+    const previousPrices = new Map(this.stocks().map((stock) => [stock.stockSymbol, stock.currentPrice]));
+    const directions: Record<string, 'up' | 'down'> = {};
+    if (trackPriceChanges) {
+      stocks.forEach((stock) => {
+        const previousPrice = previousPrices.get(stock.stockSymbol);
+        if (previousPrice !== undefined && previousPrice !== stock.currentPrice) {
+          directions[stock.stockSymbol] = stock.currentPrice > previousPrice ? 'up' : 'down';
+        }
+      });
+    }
+    this.priceDirections.set(directions);
+    this.stocks.set(stocks);
   }
 
   protected updateQuery(value: string): void {
