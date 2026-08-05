@@ -35,7 +35,7 @@
           <tbody>
             @for (stock of pageItems(); track stock.stockSymbol) {
               <tr>
-                <td><span class="symbol"><span class="symbol__mark">{{ stock.stockSymbol.slice(0, 2) }}</span>{{ stock.stockSymbol }}</span></td>
+                <td><span class="symbol"><app-stock-logo [symbol]="stock.stockSymbol" />{{ stock.stockSymbol }}</span></td>
                 <td class="primary-cell">{{ stock.stockName }}</td>
                 <td class="numeric primary-cell">{{ stock.currentPrice | currency:'USD' }}</td>
                 <td class="numeric"><span class="badge" [class.badge--low]="stock.availableQuantity < 10">{{ stock.availableQuantity | number }}</span></td>

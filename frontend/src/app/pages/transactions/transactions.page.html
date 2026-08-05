@@ -35,7 +35,7 @@
               <tr>
                 <td class="primary-cell">#{{ transaction.transactionId }}</td>
                 <td><span class="primary-cell">{{ transaction.customerName || 'Customer #' + transaction.customerId }}</span><span class="secondary-line">ID {{ transaction.customerId }}</span></td>
-                <td><span class="symbol"><span class="symbol__mark">{{ transaction.stockSymbol.slice(0, 2) }}</span><span>{{ transaction.stockSymbol }}@if (transaction.stockName) { <small class="secondary-line">{{ transaction.stockName }}</small> }</span></span></td>
+                <td><span class="symbol"><app-stock-logo [symbol]="transaction.stockSymbol" /><span>{{ transaction.stockSymbol }}@if (transaction.stockName) { <small class="secondary-line">{{ transaction.stockName }}</small> }</span></span></td>
                 <td><span class="badge" [class.badge--buy]="transaction.transactionType === 'BUY'" [class.badge--sell]="transaction.transactionType === 'SELL'">{{ transaction.transactionType }}</span></td>
                 <td class="numeric">{{ transaction.quantity | number }}</td>
                 <td class="numeric">{{ transaction.price | currency:'USD' }}</td>

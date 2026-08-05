@@ -5,10 +5,11 @@ import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
 import { Stock, StockInput } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
+import { StockLogoComponent } from '../../shared/stock-logo.component';
 
 @Component({
   selector: 'app-stocks-page',
-  imports: [CurrencyPipe, DecimalPipe, ReactiveFormsModule, IconComponent],
+  imports: [CurrencyPipe, DecimalPipe, ReactiveFormsModule, IconComponent, StockLogoComponent],
   templateUrl: './stocks.page.html',
   styleUrl: './stocks.page.css',
 })

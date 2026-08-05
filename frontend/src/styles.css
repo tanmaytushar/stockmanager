@@ -126,8 +126,7 @@ h1, h2, h3 { font-family: 'Manrope', 'DM Sans', sans-serif; }
 .primary-cell { color: var(--ink); font-weight: 700; }
 .secondary-line { display: block; margin-top: 3px; color: var(--muted-light); font-size: .67rem; font-weight: 400; }
 .symbol { display: inline-flex; align-items: center; gap: 9px; color: var(--ink); font-weight: 750; }
-.symbol__mark, .person-mark { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 7px; background: var(--accent-soft); color: var(--accent-dark); font-size: .64rem; font-weight: 800; }
-.person-mark { border-radius: 50%; background: #eef3ff; color: #4d67a0; }
+.person-mark { display: grid; width: 30px; height: 30px; place-items: center; border-radius: 50%; background: #eef3ff; color: #4d67a0; font-size: .64rem; font-weight: 800; }
 .badge { display: inline-flex; align-items: center; padding: 4px 8px; border-radius: 100px; background: #eff3f7; color: #526176; font-size: .62rem; font-weight: 750; letter-spacing: .035em; }
 .badge--buy, .badge--success { background: var(--success-soft); color: #0f8757; }
 .badge--sell, .badge--danger { background: var(--danger-soft); color: #c34343; }

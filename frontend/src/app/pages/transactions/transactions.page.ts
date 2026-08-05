@@ -5,12 +5,13 @@ import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
 import { StockTransaction, TransactionType } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
+import { StockLogoComponent } from '../../shared/stock-logo.component';
 
 type TypeFilter = 'ALL' | TransactionType;
 
 @Component({
   selector: 'app-transactions-page',
-  imports: [CurrencyPipe, DatePipe, DecimalPipe, RouterLink, IconComponent],
+  imports: [CurrencyPipe, DatePipe, DecimalPipe, RouterLink, IconComponent, StockLogoComponent],
   templateUrl: './transactions.page.html',
   styleUrl: './transactions.page.css',
 })
