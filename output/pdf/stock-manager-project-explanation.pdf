@@ -1,0 +1,625 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R 17 0 R 19 0 R 21 0 R 23 0 R 25 0 R 27 0 R 29 0 R] /Count 13 >>
+endobj
+2 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+4 0 obj
+<< /Length 1851 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (PROJECT DOCUMENTATION) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (STOCK MANAGER) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (Full-stack project explanation and presentation guide) Tj ET
+0.078 0.165 0.247 rg 0 0 595.28 545 re f
+0.957 0.973 0.984 rg 0 545 595.28 296.89 re f
+1.000 1.000 1.000 rg BT /F2 34 Tf 48 700 Td (STOCK) Tj ET
+1.000 1.000 1.000 rg BT /F2 34 Tf 48 655 Td (MANAGER) Tj ET
+0.824 0.890 0.937 rg BT /F1 13 Tf 48 616 Td (Angular + Spring Boot + Oracle Database) Tj ET
+0.055 0.502 0.463 RG 3 w 48 590 m 254 590 l S
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 487 Td (This document explains the full project from scratch:) Tj ET
+0.137 0.184 0.231 rg BT /F1 12 Tf 48 460 Td (architecture, technology stack, database design, security,) Tj ET
+0.137 0.184 0.231 rg BT /F1 12 Tf 48 440 Td (business logic, live pricing, APIs, testing, and presentation tips.) Tj ET
+0.957 0.973 0.984 rg 48 634.5 499 70 re f
+0.055 0.502 0.463 rg 48 634.5 4 70 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 62 684.5 Td (PROJECT TYPE) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 668.5 Td (A secure stock-management and trading simulation for an administrator. It does) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 655.5 Td (not use a real stock exchange; its live price movement is simulated in the) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 642.5 Td (backend.) Tj ET
+0.365 0.416 0.463 rg BT /F1 9 Tf 48 100 Td (Prepared for demonstration, viva, and project presentation) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 1 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+5 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 4 0 R >>
+endobj
+6 0 obj
+<< /Length 3279 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (01 - EXECUTIVE OVERVIEW) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (Project overview) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (What the project does, who uses it, and why it matters.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (The problem) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 678.5 Td (Managing stocks, customers, customer holdings, and transaction records manually can lead) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 664.3 Td (to inconsistent inventory, missing audit history, and incorrect portfolio values. A web) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 650.0999999999999 Td (application centralizes these activities and applies rules before data is saved.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 635.8999999999999 Td (The solution) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 625.8999999999999 m 547 625.8999999999999 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 609.8999999999999 Td (Stock Manager is a full-stack web application for an administrator. It manages the stock) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 595.6999999999998 Td (inventory and customer records, executes buy and sell transactions, updates customer) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 581.4999999999998 Td (portfolios, saves transaction history, and provides reports.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 567.2999999999997 Td (Primary user) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 557.2999999999997 m 547 557.2999999999997 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 541.2999999999997 Td (- The administrator logs in and uses the protected application pages.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 525.0999999999997 Td (- The administrator can create, search, update, or delete stocks and customers.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 508.8999999999997 Td (- The administrator can buy stock for a customer or sell stock already owned by that) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 494.6999999999997 Td (customer.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 478.4999999999997 Td (- The administrator can inspect portfolio value, transaction history, and reports.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 462.2999999999997 Td (Key result) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 452.2999999999997 m 547 452.2999999999997 l S
+0.957 0.973 0.984 rg 48 366.2999999999997 499 70 re f
+0.078 0.502 0.290 rg 48 366.2999999999997 4 70 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 62 416.2999999999997 Td (BUSINESS VALUE) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 400.2999999999997 Td (The application keeps inventory, holdings, transaction records, and current) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 387.2999999999997 Td (market price aligned. This gives one reliable source of truth instead of) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 374.2999999999997 Td (separate manual records.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 2 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+7 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 6 0 R >>
+endobj
+8 0 obj
+<< /Length 3234 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (02 - FEATURES) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (Main functional features) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (A summary of the modules that make up the application.) Tj ET
+0.957 0.973 0.984 rg 48 654.5 499 50 re f
+0.145 0.412 0.698 rg 48 654.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 685.5 Td (Dashboard) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 670.5 Td (Shows headline metrics such as listed stocks, customers, transactions,) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 658 Td (portfolio value, and inventory information.) Tj ET
+0.957 0.973 0.984 rg 48 595.5 499 50 re f
+0.055 0.502 0.463 rg 48 595.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 626.5 Td (Stocks) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 611.5 Td (Supports stock CRUD operations, search, pagination, current price,) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 599 Td (available quantity, and live movement color.) Tj ET
+0.957 0.973 0.984 rg 48 536.5 499 50 re f
+0.145 0.412 0.698 rg 48 536.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 567.5 Td (Customers) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 552.5 Td (Supports customer CRUD operations, search, form validation, and) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 540 Td (customer portfolio access.) Tj ET
+0.957 0.973 0.984 rg 48 477.5 499 50 re f
+0.055 0.502 0.463 rg 48 477.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 508.5 Td (Trade) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 493.5 Td (Executes buy and sell orders with business-rule checks before database) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 481 Td (changes are committed.) Tj ET
+0.957 0.973 0.984 rg 48 418.5 499 50 re f
+0.145 0.412 0.698 rg 48 418.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 449.5 Td (Transactions) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 434.5 Td (Shows a complete history of buys and sells, including the execution) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 422 Td (price and date/time.) Tj ET
+0.957 0.973 0.984 rg 48 359.5 499 50 re f
+0.055 0.502 0.463 rg 48 359.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 390.5 Td (Portfolios and reports) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 375.5 Td (Displays current customer holdings and reports such as most traded) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 363 Td (stock, highest price, and total asset value.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 350.5 Td (Optional enhancement) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 340.5 m 547 340.5 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 324.5 Td (An optional AI assistant is available through the Groq API. It can answer questions about) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 310.3 Td (the workspace data and prepare a trade proposal for confirmation. It does not execute a) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 296.1 Td (trade by itself.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 3 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+9 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 8 0 R >>
+endobj
+10 0 obj
+<< /Length 3147 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (03 - TECHNOLOGY STACK) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (Technologies used) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (Each technology has a specific responsibility in the project.) Tj ET
+0.957 0.973 0.984 rg 48 654.5 499 50 re f
+0.145 0.412 0.698 rg 48 654.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 685.5 Td (Frontend - Angular 22) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 670.5 Td (Angular provides the browser application. TypeScript is used for) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 658 Td (components, routes, typed models, API services, and application logic.) Tj ET
+0.957 0.973 0.984 rg 48 583 499 62.5 re f
+0.055 0.502 0.463 rg 48 583 6 62.5 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 626.5 Td (Reactive frontend tools) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 611.5 Td (Angular Signals manage local UI state. RxJS manages asynchronous API) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 599 Td (requests and the one-second stock-price refresh. Reactive Forms) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 586.5 Td (validate user input.) Tj ET
+0.957 0.973 0.984 rg 48 511.5 499 62.5 re f
+0.145 0.412 0.698 rg 48 511.5 6 62.5 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 555 Td (Backend - Java 17 and Spring Boot 3) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 540 Td (Spring Boot provides the REST API, dependency injection,) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 527.5 Td (configuration, validation, logging, scheduling, and application) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 515 Td (startup.) Tj ET
+0.957 0.973 0.984 rg 48 452.5 499 50 re f
+0.055 0.502 0.463 rg 48 452.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 483.5 Td (Persistence - Spring Data JPA and Hibernate) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 468.5 Td (JPA maps Java entities to Oracle tables. Repositories perform database) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 456 Td (operations while services keep the business logic separate.) Tj ET
+0.957 0.973 0.984 rg 48 393.5 499 50 re f
+0.145 0.412 0.698 rg 48 393.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 424.5 Td (Database - Oracle) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 409.5 Td (Oracle stores persistent stock, customer, portfolio, transaction, and) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 397 Td (administrator data. The schema is defined in sqlscript.sql.) Tj ET
+0.957 0.973 0.984 rg 48 334.5 499 50 re f
+0.055 0.502 0.463 rg 48 334.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 365.5 Td (Security and tools) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 350.5 Td (Spring Security, BCrypt, HTTP sessions, CSRF protection, CORS, Maven,) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 338 Td (npm, Angular CLI, and Swagger/OpenAPI are also used.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 4 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+11 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 10 0 R >>
+endobj
+12 0 obj
+<< /Length 3314 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (04 - ARCHITECTURE) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (System architecture) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (The design follows a simple and maintainable three-tier structure.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (Three tiers) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.957 0.973 0.984 rg 48 628.5 499 50 re f
+0.145 0.412 0.698 rg 48 628.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 659.5 Td (1. Angular frontend) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 644.5 Td (The browser UI contains pages, forms, route guards, validation) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 632 Td (messages, loading states, responsive styling, and API calls.) Tj ET
+0.957 0.973 0.984 rg 48 569.5 499 50 re f
+0.055 0.502 0.463 rg 48 569.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 600.5 Td (2. Spring Boot backend) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 585.5 Td (The backend exposes REST endpoints, authenticates the user, validates) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 573 Td (requests, applies business rules, and returns JSON responses.) Tj ET
+0.957 0.973 0.984 rg 48 510.5 499 50 re f
+0.078 0.165 0.247 rg 48 510.5 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 541.5 Td (3. Oracle database) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 526.5 Td (Oracle persists the application data. Hibernate and Spring Data JPA) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 514 Td (translate repository operations into database queries.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 501.5 Td (Layered backend pattern) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 491.5 m 547 491.5 l S
+0.957 0.973 0.984 rg 48 405.5 499 70 re f
+0.055 0.502 0.463 rg 48 405.5 4 70 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 62 455.5 Td (CONTROLLER -> SERVICE -> REPOSITORY -> DATABASE) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 439.5 Td (Controllers receive HTTP requests. Services contain business rules.) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 426.5 Td (Repositories access Oracle through JPA. This separation makes the project) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 413.5 Td (easier to test, understand, and maintain.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 391.5 Td (Example request flow) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 381.5 m 547 381.5 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 365.5 Td (- The user submits a trade on the Angular Trade page.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 349.3 Td (- Angular sends a JSON request to a protected Spring Boot REST endpoint.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 333.1 Td (- The service checks stock availability or customer ownership.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 316.90000000000003 Td (- Repositories update Oracle tables inside a database transaction.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 300.70000000000005 Td (- The backend returns JSON and Angular updates the visible page.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 5 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+13 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 12 0 R >>
+endobj
+14 0 obj
+<< /Length 3314 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (05 - DATABASE DESIGN) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (Oracle data model) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (The schema separates current state from historical transaction records.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (Core tables) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.957 0.973 0.984 rg 48 616 499 62.5 re f
+0.055 0.502 0.463 rg 48 616 6 62.5 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 659.5 Td (STOCK) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 644.5 Td (Stores stock symbol, company name, CURRENT_PRICE, and) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 632 Td (AVAILABLE_QUANTITY. CURRENT_PRICE is the current simulated market) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 619.5 Td (price.) Tj ET
+0.957 0.973 0.984 rg 48 559 499 48 re f
+0.145 0.412 0.698 rg 48 559 6 48 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 588 Td (CUSTOMER) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 573 Td (Stores the customer ID, customer name, and email address.) Tj ET
+0.957 0.973 0.984 rg 48 500 499 50 re f
+0.055 0.502 0.463 rg 48 500 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 531 Td (STOCK_TRANSACTION) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 516 Td (Stores every buy or sell action with customer, stock, transaction) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 503.5 Td (type, quantity, trade price, and transaction date.) Tj ET
+0.957 0.973 0.984 rg 48 441 499 50 re f
+0.145 0.412 0.698 rg 48 441 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 472 Td (CUSTOMER_PORTFOLIO) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 457 Td (Stores each customer holding: customer ID, stock symbol, and the) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 444.5 Td (number of shares currently owned.) Tj ET
+0.957 0.973 0.984 rg 48 382 499 50 re f
+0.055 0.502 0.463 rg 48 382 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 413 Td (ADMIN_CREDENTIAL) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 398 Td (Stores the administrator username and BCrypt password hash. Plain-text) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 385.5 Td (passwords are not stored.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 373 Td (Relationships) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 363 m 547 363 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 347 Td (- One customer can have many transactions and many portfolio holdings.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 330.8 Td (- One stock can appear in many transactions and in many customer portfolios.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 314.6 Td (- The portfolio uses customer ID plus stock symbol to identify one customer-stock) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 300.40000000000003 Td (holding.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 284.20000000000005 Td (- Transaction price is historical; current price is stored separately in) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 270.00000000000006 Td (STOCK.CURRENT_PRICE.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 6 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 14 0 R >>
+endobj
+16 0 obj
+<< /Length 3170 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (06 - BACKEND) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (Spring Boot backend) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (REST APIs, business rules, transactions, and persistence.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (Important backend components) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.957 0.973 0.984 rg 48 616 499 62.5 re f
+0.145 0.412 0.698 rg 48 616 6 62.5 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 659.5 Td (Controllers) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 644.5 Td (StockController, CustomerController, TransactionController,) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 632 Td (PortfolioController, ReportController, AuthController, and) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 619.5 Td (AssistantController expose REST endpoints.) Tj ET
+0.957 0.973 0.984 rg 48 544.5 499 62.5 re f
+0.055 0.502 0.463 rg 48 544.5 6 62.5 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 588 Td (Services) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 573 Td (StockService, CustomerService, TransactionService, PortfolioService,) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 560.5 Td (ReportService, PriceSimulationService, and AssistantService contain) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 548 Td (application logic.) Tj ET
+0.957 0.973 0.984 rg 48 473 499 62.5 re f
+0.145 0.412 0.698 rg 48 473 6 62.5 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 516.5 Td (Repositories) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 501.5 Td (Spring Data JPA repositories retrieve and persist entities. The) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 489 Td (project also uses locking queries when a stock row must be updated) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 476.5 Td (safely.) Tj ET
+0.957 0.973 0.984 rg 48 414 499 50 re f
+0.055 0.502 0.463 rg 48 414 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 445 Td (Entities and DTOs) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 430 Td (Entities map to database tables. DTOs define clean request and) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 417.5 Td (response shapes for the API.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 405 Td (Validation and errors) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 395 m 547 395 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 379 Td (- Bean Validation checks required values, valid prices, quantities, symbols, names,) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 364.8 Td (and email addresses.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 348.6 Td (- A global exception handler converts failures into consistent API error responses.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 332.40000000000003 Td (- Application logging records meaningful events such as stock creation and completed) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 318.20000000000005 Td (trades.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 7 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+17 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 16 0 R >>
+endobj
+18 0 obj
+<< /Length 2886 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (07 - TRADE BUSINESS LOGIC) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (How buying and selling works) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (The most important part of the project is maintaining correct data during a trade.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (Buy stock flow) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 678.5 Td (- Find the customer and lock the selected stock for update.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 662.3 Td (- Verify that the requested quantity does not exceed available stock quantity.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 646.0999999999999 Td (- Reduce STOCK.AVAILABLE_QUANTITY.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 629.8999999999999 Td (- Create or update the customer portfolio holding.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 613.6999999999998 Td (- Save a BUY transaction using the latest STOCK.CURRENT_PRICE.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 597.4999999999998 Td (Sell stock flow) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 587.4999999999998 m 547 587.4999999999998 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 571.4999999999998 Td (- Find the customer, lock the stock, and find the customer holding.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 555.2999999999997 Td (- Verify that the customer owns at least the requested quantity.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 539.0999999999997 Td (- Reduce or delete the portfolio holding if all shares are sold.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 522.8999999999996 Td (- Increase STOCK.AVAILABLE_QUANTITY.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 506.69999999999965 Td (- Save a SELL transaction using the latest STOCK.CURRENT_PRICE.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 490.49999999999966 Td (Why database transactions matter) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 480.49999999999966 m 547 480.49999999999966 l S
+0.957 0.973 0.984 rg 48 394.49999999999966 499 70 re f
+0.078 0.502 0.290 rg 48 394.49999999999966 4 70 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 62 444.49999999999966 Td (ATOMIC OPERATION) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 428.49999999999966 Td (A trade changes multiple records. The database transaction ensures all) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 415.49999999999966 Td (required changes succeed together, or all changes are rolled back if an error) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.5 Tf 62 402.49999999999966 Td (occurs.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 8 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+19 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 18 0 R >>
+endobj
+20 0 obj
+<< /Length 3019 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (08 - LIVE STOCK PRICES) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (Simulated live market feature) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (The project now has natural price movement without a third-party market-data API.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (Backend simulation) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 678.5 Td (- Spring scheduling is activated with @EnableScheduling.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 662.3 Td (- PriceSimulationService runs every 1,000 milliseconds.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 646.0999999999999 Td (- It locks stock rows and changes each CURRENT_PRICE by a small random amount,) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 631.8999999999999 Td (roughly +/- 0.15 percent.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 615.6999999999998 Td (- Prices are rounded to two decimal places and never allowed to go below 0.01.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 599.4999999999998 Td (- Only CURRENT_PRICE is changed. No previous-price or price-history table is stored.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 583.2999999999997 Td (Frontend display) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 573.2999999999997 m 547 573.2999999999997 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 557.2999999999997 Td (- The Stocks page refreshes the stock list every second using RxJS interval and) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 543.0999999999997 Td (switchMap.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 526.8999999999996 Td (- Angular compares each new price with the previous displayed price.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 510.6999999999996 Td (- Price text turns green when the value increases and red when it decreases.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 494.4999999999996 Td (- The Trade page also refreshes stock data every second, so its market price stays) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 480.2999999999996 Td (current.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 464.0999999999996 Td (Why backend pricing is better) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 454.0999999999996 m 547 454.0999999999996 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 438.0999999999996 Td (The price changes in the database, not only in the browser. Therefore the trade service,) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 423.89999999999964 Td (the portfolio calculations, and the screen all use the same current value. A real) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 409.69999999999965 Td (market-data provider could replace the simulator later.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 9 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+21 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 20 0 R >>
+endobj
+22 0 obj
+<< /Length 2651 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (09 - FRONTEND) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (Angular user experience) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (The frontend is designed as a responsive single-page application.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (Angular implementation) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 678.5 Td (- Lazy-loaded Angular routes improve loading by requesting a page component only) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 664.3 Td (when it is needed.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 648.0999999999999 Td (- Route guards keep protected pages unavailable until the administrator is) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 633.8999999999999 Td (authenticated.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 617.6999999999998 Td (- Angular Signals hold state such as stocks, customers, loading, errors, form state,) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 603.4999999999998 Td (and price movement direction.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 587.2999999999997 Td (- Reactive Forms provide field validation before create, update, and trade) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 573.0999999999997 Td (submissions.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 556.8999999999996 Td (- HttpClient and an API service call the Spring Boot backend and handle error) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 542.6999999999996 Td (responses.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 526.4999999999995 Td (Usability features) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 516.4999999999995 m 547 516.4999999999995 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 500.49999999999955 Td (- Search and pagination make stock and customer data easier to browse.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 484.29999999999956 Td (- Loading, error, success, and empty states communicate what is happening to the) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 470.09999999999957 Td (user.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 453.8999999999996 Td (- The interface includes dashboard, stocks, customers, trade, transactions,) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 439.6999999999996 Td (portfolios, reports, login, and not-found pages.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 10 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+23 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 22 0 R >>
+endobj
+24 0 obj
+<< /Length 2850 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (10 - SECURITY) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (Application security) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (Security is implemented on both the backend and browser boundary.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (Authentication) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 678.5 Td (- Spring Security protects API endpoints. The login endpoint is the public entry) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 664.3 Td (point.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 648.0999999999999 Td (- Passwords are stored using BCrypt hashes rather than plain text.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 631.8999999999999 Td (- After login, the application uses an HTTP session cookie.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 615.6999999999998 Td (- Session fixation protection changes the session ID after successful login.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 599.4999999999998 Td (Request protection) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 589.4999999999998 m 547 589.4999999999998 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 573.4999999999998 Td (- CSRF protection is enabled using a token cookie.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 557.2999999999997 Td (- CORS is configured so the Angular development origin can call the backend with) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 543.0999999999997 Td (credentials.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 526.8999999999996 Td (- The session cookie uses HttpOnly and SameSite settings to reduce common browser) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 512.6999999999996 Td (risks.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 496.4999999999996 Td (- Database passwords and optional AI API keys are kept in backend/.env, which is) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 482.2999999999996 Td (ignored by Git.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 466.0999999999996 Td (Important presentation point) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 456.0999999999996 m 547 456.0999999999996 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 440.0999999999996 Td (For a local training project, the README shows an Oracle SYSTEM setup. In a production) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 425.89999999999964 Td (system, the application should use a dedicated database user with least-privilege) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 411.69999999999965 Td (permissions.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 11 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+25 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 24 0 R >>
+endobj
+26 0 obj
+<< /Length 3157 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (11 - APIS, TESTING, AND DEMO) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (Quality and delivery) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (How the application is documented, verified, and demonstrated.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (Representative REST endpoints) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 678.5 Td (- GET and POST /api/stocks - list or create stocks.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 662.3 Td (- GET, PUT, and DELETE /api/stocks/{symbol} - read, update, or delete one stock.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 646.0999999999999 Td (- GET and POST /api/customers - list or create customers.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 629.8999999999999 Td (- POST /api/transactions/buy and POST /api/transactions/sell - execute trades.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 613.6999999999998 Td (- GET /api/portfolios and GET /api/reports/* - portfolio and reporting information.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 597.4999999999998 Td (Documentation and checks) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 587.4999999999998 m 547 587.4999999999998 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 571.4999999999998 Td (- Swagger/OpenAPI provides interactive API documentation at the backend Swagger UI) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 557.2999999999997 Td (route.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 541.0999999999997 Td (- Backend automated checks run with: mvnw.cmd test.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 524.8999999999996 Td (- Frontend production verification runs with: npm run build.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 508.69999999999965 Td (- The application is developed locally with Oracle on port 1521, Spring Boot on port) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 494.49999999999966 Td (8080, and Angular on port 4200.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 478.29999999999967 Td (Suggested demo order) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 468.29999999999967 m 547 468.29999999999967 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 452.29999999999967 Td (- Log in, open the dashboard, create or view a stock, and show the live price) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 438.0999999999997 Td (changing.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 421.8999999999997 Td (- Open the Trade page, buy shares for a customer, then show the transaction and) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 407.6999999999997 Td (portfolio changes.) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 50 391.4999999999997 Td (- Open Reports and explain the management information available to the) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 65 377.2999999999997 Td (administrator.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 12 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+27 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 26 0 R >>
+endobj
+28 0 obj
+<< /Length 4288 >>
+stream
+1.000 1.000 1.000 rg 0 0 595.28 841.89 re f
+0.078 0.165 0.247 rg 0 823.89 595.28 18 re f
+0.055 0.502 0.463 rg BT /F2 8 Tf 48 799 Td (12 - PRESENTATION GUIDE) Tj ET
+0.078 0.165 0.247 rg BT /F2 22 Tf 48 765 Td (How to explain the project) Tj ET
+0.055 0.502 0.463 RG 2 w 48 750 m 547 750 l S
+0.365 0.416 0.463 rg BT /F1 10.3 Tf 48 726 Td (Use this concise script during a demo or viva.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 704.5 Td (One-minute project explanation) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 694.5 m 547 694.5 l S
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 678.5 Td (My project is a full-stack Stock Manager built using Angular, Spring Boot, and Oracle) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 664.3 Td (Database. It allows an administrator to manage stocks and customers, perform buy and sell) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 650.0999999999999 Td (transactions, track customer portfolios, and view reports. Angular provides the responsive) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 635.8999999999999 Td (frontend, while Spring Boot exposes secure REST APIs and uses Spring Data JPA to connect) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 621.6999999999998 Td (with Oracle. Trade operations use validation, transactions, and database locking to keep) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 607.4999999999998 Td (inventory and portfolio data consistent. I also added simulated live stock prices: Spring) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 593.2999999999997 Td (Boot updates STOCK.CURRENT_PRICE every second, Angular refreshes the price every second,) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 579.0999999999997 Td (and the Stocks page shows green for an increase and red for a decrease. Security uses) Tj ET
+0.137 0.184 0.231 rg BT /F1 10.1 Tf 48 564.8999999999996 Td (Spring Security, BCrypt password hashing, sessions, CSRF protection, and protected routes.) Tj ET
+0.078 0.165 0.247 rg BT /F2 14 Tf 48 550.6999999999996 Td (Useful viva answers) Tj ET
+0.835 0.878 0.910 RG 0.8 w 48 540.6999999999996 m 547 540.6999999999996 l S
+0.957 0.973 0.984 rg 48 474.6999999999996 499 50 re f
+0.055 0.502 0.463 rg 48 474.6999999999996 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 505.6999999999996 Td (Why use a transaction?) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 490.6999999999996 Td (One buy or sell operation updates inventory, portfolio, and) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 478.1999999999996 Td (transaction history. A database transaction prevents partial updates.) Tj ET
+0.957 0.973 0.984 rg 48 415.6999999999996 499 50 re f
+0.145 0.412 0.698 rg 48 415.6999999999996 6 50 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 446.6999999999996 Td (Why save transaction price?) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 431.6999999999996 Td (CURRENT_PRICE can change every second. The saved transaction price) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 419.1999999999996 Td (preserves the exact price used at the time of the trade.) Tj ET
+0.957 0.973 0.984 rg 48 344.1999999999996 499 62.5 re f
+0.055 0.502 0.463 rg 48 344.1999999999996 6 62.5 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 387.6999999999996 Td (Why use JPA?) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 372.6999999999996 Td (JPA maps Java entities to Oracle tables and reduces repetitive) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 360.1999999999996 Td (database access code while repositories keep persistence logic) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 347.6999999999996 Td (organized.) Tj ET
+0.957 0.973 0.984 rg 48 272.6999999999996 499 62.5 re f
+0.145 0.412 0.698 rg 48 272.6999999999996 6 62.5 re f
+0.078 0.165 0.247 rg BT /F2 10.5 Tf 64 316.1999999999996 Td (How would you add real data?) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 301.1999999999996 Td (Replace the simulated price calculation with a backend service that) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 288.6999999999996 Td (calls a market-data provider. The frontend and trade workflow can) Tj ET
+0.137 0.184 0.231 rg BT /F1 9.4 Tf 64 276.1999999999996 Td (remain the same.) Tj ET
+0.365 0.416 0.463 rg BT /F2 7.5 Tf 48 31 Td (STOCK MANAGER - PROJECT EXPLANATION) Tj ET
+0.365 0.416 0.463 rg BT /F1 7.5 Tf 510 31 Td (PAGE 13 OF 13) Tj ET
+0.835 0.878 0.910 RG 0.6 w 48 43 m 547 43 l S
+endstream
+endobj
+29 0 obj
+<< /Type /Page /Parent 1 0 R /MediaBox [0 0 595.28 841.89] /Resources << /Font << /F1 2 0 R /F2 3 0 R >> >> /Contents 28 0 R >>
+endobj
+30 0 obj
+<< /Type /Catalog /Pages 1 0 R /PageLayout /SinglePage >>
+endobj
+31 0 obj
+<< /Title (Stock Manager - Project Explanation) /Author (Stock Manager Project) /Subject (Full stack project presentation guide) >>
+endobj
+xref
+0 32
+0000000000 65535 f 
+0000000015 00000 n 
+0000000155 00000 n 
+0000000225 00000 n 
+0000000300 00000 n 
+0000002202 00000 n 
+0000002344 00000 n 
+0000005674 00000 n 
+0000005816 00000 n 
+0000009101 00000 n 
+0000009243 00000 n 
+0000012442 00000 n 
+0000012586 00000 n 
+0000015952 00000 n 
+0000016096 00000 n 
+0000019462 00000 n 
+0000019606 00000 n 
+0000022828 00000 n 
+0000022972 00000 n 
+0000025910 00000 n 
+0000026054 00000 n 
+0000029125 00000 n 
+0000029269 00000 n 
+0000031972 00000 n 
+0000032116 00000 n 
+0000035018 00000 n 
+0000035162 00000 n 
+0000038371 00000 n 
+0000038515 00000 n 
+0000042855 00000 n 
+0000042999 00000 n 
+0000043073 00000 n 
+trailer
+<< /Size 32 /Root 30 0 R /Info 31 0 R >>
+startxref
+43221
+%%EOF
