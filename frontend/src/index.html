@@ -7,6 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Stock Manager trading and portfolio workspace">
   <meta name="theme-color" content="#111827">
+  <script>
+    (() => {
+      const saved = localStorage.getItem('stock-manager-theme');
+      const preference = ['light', 'dark', 'system'].includes(saved) ? saved : 'system';
+      const theme = preference === 'system'
+        ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        : preference;
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.dataset.themePreference = preference;
+      document.documentElement.style.colorScheme = theme;
+    })();
+  </script>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>

@@ -1,4 +1,4 @@
 .data-card { overflow: hidden; }
 .notice { margin-bottom: 16px; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-input[readonly] { background: #f3f6f9; color: var(--muted); cursor: not-allowed; }
+input[readonly] { background: var(--surface-soft); color: var(--muted); cursor: not-allowed; }

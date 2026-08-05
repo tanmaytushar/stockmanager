@@ -9,7 +9,7 @@
 .portfolio-summary small { margin-top: 2px; color: var(--muted); font-size: .63rem; }
 .portfolio-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-bottom: 18px; padding: 14px 16px; }
 .customer-filter { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: .68rem; }
-.customer-filter select { height: 38px; min-width: 180px; padding: 0 30px 0 11px; border: 1px solid var(--border); border-radius: 8px; background: #fff; color: var(--ink); font-size: .72rem; }
+.customer-filter select { height: 38px; min-width: 180px; padding: 0 30px 0 11px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-input); color: var(--ink); font-size: .72rem; }
 .portfolio-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 17px; }
 .portfolio-card { overflow: hidden; }
 .portfolio-card__header { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 17px 19px; border-bottom: 1px solid var(--border); }
@@ -22,7 +22,7 @@
 .portfolio-value span { color: var(--muted); font-size: .61rem; }
 .portfolio-value strong { margin-top: 3px; color: var(--accent-dark); font-family: 'Manrope', sans-serif; font-size: .92rem; }
 .holdings-table th, .holdings-table td { padding: 11px 14px; }
-.portfolio-card__footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 17px; border-top: 1px solid var(--border); background: #fafbfd; color: var(--muted); font-size: .65rem; }
+.portfolio-card__footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 17px; border-top: 1px solid var(--border); background: var(--surface-soft); color: var(--muted); font-size: .65rem; }
 .portfolio-pagination { display: flex; align-items: center; justify-content: center; gap: 9px; margin-top: 18px; color: var(--muted); font-size: .7rem; }
 @media (max-width: 1100px) { .portfolio-grid { grid-template-columns: 1fr; } }
 @media (max-width: 720px) { .portfolio-summary { grid-template-columns: repeat(2, 1fr); } .portfolio-summary > div:nth-child(2) { border-right: 0; } .portfolio-summary > div:nth-child(-n+2) { border-bottom: 1px solid var(--border); } .portfolio-toolbar { align-items: stretch; flex-direction: column; } .customer-filter { justify-content: space-between; } }

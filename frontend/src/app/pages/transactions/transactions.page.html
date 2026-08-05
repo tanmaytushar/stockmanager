@@ -9,8 +9,8 @@
   @if (!loading()) {
     <div class="transaction-stats">
       <div><span>All transactions</span><strong>{{ transactions().length | number }}</strong></div>
-      <div><span class="dot dot--buy"></span><span>Buy orders</span><strong>{{ buyCount() | number }}</strong></div>
-      <div><span class="dot dot--sell"></span><span>Sell orders</span><strong>{{ sellCount() | number }}</strong></div>
+      <div><span class="status-label status-label--buy"><app-icon name="trending-up" />Buy orders</span><strong>{{ buyCount() | number }}</strong></div>
+      <div><span class="status-label status-label--sell"><app-icon name="trending-down" />Sell orders</span><strong>{{ sellCount() | number }}</strong></div>
       <div><span>Gross traded value</span><strong>{{ tradedValue() | currency:'USD':'symbol':'1.0-0' }}</strong></div>
     </div>
   }
@@ -36,7 +36,7 @@
                 <td class="primary-cell">#{{ transaction.transactionId }}</td>
                 <td><span class="primary-cell">{{ transaction.customerName || 'Customer #' + transaction.customerId }}</span><span class="secondary-line">ID {{ transaction.customerId }}</span></td>
                 <td><span class="symbol"><app-stock-logo [symbol]="transaction.stockSymbol" /><span>{{ transaction.stockSymbol }}@if (transaction.stockName) { <small class="secondary-line">{{ transaction.stockName }}</small> }</span></span></td>
-                <td><span class="badge" [class.badge--buy]="transaction.transactionType === 'BUY'" [class.badge--sell]="transaction.transactionType === 'SELL'">{{ transaction.transactionType }}</span></td>
+                <td><span class="badge" [class.badge--buy]="transaction.transactionType === 'BUY'" [class.badge--sell]="transaction.transactionType === 'SELL'"><app-icon [name]="transaction.transactionType === 'BUY' ? 'trending-up' : 'trending-down'" />{{ transaction.transactionType }}</span></td>
                 <td class="numeric">{{ transaction.quantity | number }}</td>
                 <td class="numeric">{{ transaction.price | currency:'USD' }}</td>
                 <td class="numeric primary-cell">{{ transaction.quantity * transaction.price | currency:'USD' }}</td>

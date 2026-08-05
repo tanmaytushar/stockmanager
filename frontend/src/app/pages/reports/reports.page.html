@@ -61,8 +61,8 @@
           <header class="card__header"><div><h2>BUY vs SELL</h2><p>Transaction type frequency</p></div></header>
           @if (reports()?.transactionFrequency; as frequency) {
             <div class="frequency-body">
-              <div class="frequency-row"><div><span><i class="frequency-dot frequency-dot--buy"></i>BUY</span><strong>{{ frequency.buyCount | number }}</strong></div><div class="bar-track"><span class="bar--buy" [style.width.%]="frequencyWidth(frequency.buyCount)"></span></div></div>
-              <div class="frequency-row"><div><span><i class="frequency-dot frequency-dot--sell"></i>SELL</span><strong>{{ frequency.sellCount | number }}</strong></div><div class="bar-track"><span class="bar--sell" [style.width.%]="frequencyWidth(frequency.sellCount)"></span></div></div>
+              <div class="frequency-row"><div><span class="frequency-label frequency-label--buy"><app-icon name="trending-up" />BUY</span><strong>{{ frequency.buyCount | number }}</strong></div><div class="bar-track"><span class="bar--buy" [style.width.%]="frequencyWidth(frequency.buyCount)"></span></div></div>
+              <div class="frequency-row"><div><span class="frequency-label frequency-label--sell"><app-icon name="trending-down" />SELL</span><strong>{{ frequency.sellCount | number }}</strong></div><div class="bar-track"><span class="bar--sell" [style.width.%]="frequencyWidth(frequency.sellCount)"></span></div></div>
             </div>
           } @else { <p class="empty-inline">No transaction frequency data.</p> }
         </article>

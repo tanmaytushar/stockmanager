@@ -3,7 +3,7 @@
 .stock-watch__summary span { margin-bottom: 5px; color: #94a3b8; font-size: .68rem; }
 .stock-watch__summary strong { font-family: 'Manrope', sans-serif; font-size: 1.25rem; }
 .stock-watch__list { padding: 7px 20px 13px; }
-.stock-watch__item { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 0; border-bottom: 1px solid #edf1f5; }
+.stock-watch__item { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 0; border-bottom: 1px solid var(--row-border); }
 .stock-watch__item:last-child { border-bottom: 0; }
 .stock-watch__item small { display: block; max-width: 145px; margin-top: 2px; overflow: hidden; color: var(--muted-light); font-size: .64rem; font-weight: 400; text-overflow: ellipsis; white-space: nowrap; }
 .stock-watch__quantity { color: var(--ink); font-size: .76rem; font-weight: 700; text-align: right; }

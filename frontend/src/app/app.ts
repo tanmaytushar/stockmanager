@@ -3,6 +3,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { AuthService } from './core/auth.service';
 import { IconComponent, IconName } from './shared/icon.component';
 import { AssistantChatComponent } from './shared/assistant-chat.component';
+import { ThemePreference, ThemeService } from './core/theme.service';
 
 interface NavItem {
   label: string;
@@ -19,6 +20,7 @@ interface NavItem {
 export class App {
   protected readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  protected readonly theme = inject(ThemeService);
   protected readonly menuOpen = signal(false);
   protected readonly navItems: NavItem[] = [
     { label: 'Overview', route: '/dashboard', icon: 'dashboard' },
@@ -32,6 +34,10 @@ export class App {
 
   protected closeMenu(): void {
     this.menuOpen.set(false);
+  }
+
+  protected setTheme(value: string): void {
+    this.theme.setPreference(value as ThemePreference);
   }
 
   protected logout(): void {

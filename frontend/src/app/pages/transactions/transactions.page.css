@@ -1,13 +1,14 @@
 .notice { margin-bottom: 16px; }
 .data-card { overflow: hidden; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-.transaction-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 18px; border: 1px solid var(--border); border-radius: 11px; background: #fff; box-shadow: var(--shadow-sm); }
+.transaction-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-bottom: 18px; border: 1px solid var(--border); border-radius: 11px; background: var(--surface); box-shadow: var(--shadow-sm); }
 .transaction-stats > div { position: relative; padding: 16px 19px; border-right: 1px solid var(--border); }
 .transaction-stats > div:last-child { border-right: 0; }
 .transaction-stats span { color: var(--muted); font-size: .66rem; }
 .transaction-stats strong { display: block; margin-top: 5px; font-family: 'Manrope', sans-serif; font-size: 1.05rem; }
-.transaction-stats .dot { display: inline-block; width: 6px; height: 6px; margin-right: 5px; border-radius: 50%; }
-.dot--buy { background: var(--success); }
-.dot--sell { background: var(--danger); }
-.filter-select select { height: 38px; padding: 0 34px 0 11px; border: 1px solid var(--border); border-radius: 8px; background: #fff; color: #536278; font-size: .72rem; outline: none; }
+.status-label { display: inline-flex; align-items: center; gap: 5px; }
+.status-label app-icon { width: 13px; height: 13px; }
+.status-label--buy { color: var(--success) !important; }
+.status-label--sell { color: var(--danger) !important; }
+.filter-select select { height: 38px; padding: 0 34px 0 11px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-input); color: var(--ink-secondary); font-size: .72rem; outline: none; }
 @media (max-width: 760px) { .transaction-stats { grid-template-columns: repeat(2, 1fr); } .transaction-stats > div:nth-child(2) { border-right: 0; } .transaction-stats > div:nth-child(-n+2) { border-bottom: 1px solid var(--border); } }

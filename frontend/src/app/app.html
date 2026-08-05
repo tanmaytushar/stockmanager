@@ -52,6 +52,21 @@
         <span>Market operations</span>
       </div>
       <div class="topbar__right">
+        <label class="theme-control">
+          <app-icon
+            [name]="theme.preference() === 'light' ? 'sun' : theme.preference() === 'dark' ? 'moon' : 'monitor'"
+          />
+          <span class="sr-only">Color theme</span>
+          <select
+            aria-label="Color theme"
+            [value]="theme.preference()"
+            (change)="setTheme($any($event.target).value)"
+          >
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+            <option value="system">System</option>
+          </select>
+        </label>
         <span class="environment-pill">Development</span>
         <span class="avatar" aria-label="Administrator">AD</span>
         <button class="logout-button" type="button" (click)="logout()">Log out</button>

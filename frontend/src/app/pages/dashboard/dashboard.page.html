@@ -54,7 +54,7 @@
                   <tr>
                     <td><span class="primary-cell">#{{ transaction.transactionId }}</span><span class="secondary-line">Customer {{ transaction.customerId }}</span></td>
                     <td><span class="symbol"><app-stock-logo [symbol]="transaction.stockSymbol" />{{ transaction.stockSymbol }}</span></td>
-                    <td><span class="badge" [class.badge--buy]="transaction.transactionType === 'BUY'" [class.badge--sell]="transaction.transactionType === 'SELL'">{{ transaction.transactionType }}</span></td>
+                    <td><span class="badge" [class.badge--buy]="transaction.transactionType === 'BUY'" [class.badge--sell]="transaction.transactionType === 'SELL'"><app-icon [name]="transaction.transactionType === 'BUY' ? 'trending-up' : 'trending-down'" />{{ transaction.transactionType }}</span></td>
                     <td class="numeric">{{ transaction.quantity | number }}</td>
                     <td class="numeric primary-cell">{{ transaction.quantity * transaction.price | currency:'USD' }}</td>
                     <td>{{ transaction.transactionDate | date:'MMM d, y' }}<span class="secondary-line">{{ transaction.transactionDate | date:'shortTime' }}</span></td>

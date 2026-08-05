@@ -4,7 +4,7 @@ export type IconName =
   | 'dashboard' | 'chart' | 'users' | 'swap' | 'receipt' | 'briefcase' | 'report'
   | 'menu' | 'plus' | 'search' | 'edit' | 'trash' | 'refresh' | 'arrow-right'
   | 'trending-up' | 'trending-down' | 'wallet' | 'database' | 'close' | 'check'
-  | 'alert' | 'chevron-left' | 'chevron-right';
+  | 'alert' | 'chevron-left' | 'chevron-right' | 'sun' | 'moon' | 'monitor';
 
 @Component({
   selector: 'app-icon',
@@ -34,6 +34,9 @@ export type IconName =
         @case ('alert') { <path d="M12 9v4m0 4h.01M10.3 3.8 2.4 18a2 2 0 0 0 1.75 3h15.7a2 2 0 0 0 1.75-3L13.7 3.8a2 2 0 0 0-3.4 0Z"/> }
         @case ('chevron-left') { <path d="m15 18-6-6 6-6"/> }
         @case ('chevron-right') { <path d="m9 18 6-6-6-6"/> }
+        @case ('sun') { <circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/> }
+        @case ('moon') { <path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/> }
+        @case ('monitor') { <rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/> }
       }
     </svg>
   `,
