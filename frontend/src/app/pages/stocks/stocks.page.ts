@@ -2,6 +2,7 @@ import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { interval, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
@@ -19,11 +20,13 @@ export class StocksPage {
   private readonly api = inject(ApiService);
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly route = inject(ActivatedRoute);
   private readonly pageSize = 8;
 
   protected readonly stocks = signal<Stock[]>([]);
   protected readonly priceDirections = signal<Record<string, 'up' | 'down'>>({});
-  protected readonly query = signal('');
+  protected readonly query = signal(this.route.snapshot.queryParamMap.get('query') ?? '');
+  protected readonly lowOnly = signal(this.route.snapshot.queryParamMap.get('filter') === 'low');
   protected readonly page = signal(1);
   protected readonly loading = signal(true);
   protected readonly saving = signal(false);
@@ -42,9 +45,10 @@ export class StocksPage {
 
   protected readonly filteredStocks = computed(() => {
     const needle = this.query().trim().toLowerCase();
-    if (!needle) return this.stocks();
+    if (!needle && !this.lowOnly()) return this.stocks();
     return this.stocks().filter((stock) =>
-      stock.stockSymbol.toLowerCase().includes(needle) || stock.stockName.toLowerCase().includes(needle),
+      (!this.lowOnly() || stock.availableQuantity <= 10)
+      && (!needle || stock.stockSymbol.toLowerCase().includes(needle) || stock.stockName.toLowerCase().includes(needle)),
     );
   });
   protected readonly totalPages = computed(() => Math.max(1, Math.ceil(this.filteredStocks().length / this.pageSize)));
@@ -58,6 +62,7 @@ export class StocksPage {
 
   constructor() {
     this.loadStocks();
+    if (this.route.snapshot.queryParamMap.get('create') === '1') setTimeout(() => this.openCreate());
     interval(1_000).pipe(
       switchMap(() => this.api.getStocks()),
       takeUntilDestroyed(this.destroyRef),

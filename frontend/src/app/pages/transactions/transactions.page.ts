@@ -1,6 +1,6 @@
 import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
 import { StockTransaction, TransactionType } from '../../core/models';
@@ -17,10 +17,11 @@ type TypeFilter = 'ALL' | TransactionType;
 })
 export class TransactionsPage {
   private readonly api = inject(ApiService);
+  private readonly route = inject(ActivatedRoute);
   private readonly pageSize = 10;
 
   protected readonly transactions = signal<StockTransaction[]>([]);
-  protected readonly query = signal('');
+  protected readonly query = signal(this.route.snapshot.queryParamMap.get('query') ?? '');
   protected readonly typeFilter = signal<TypeFilter>('ALL');
   protected readonly page = signal(1);
   protected readonly loading = signal(true);
