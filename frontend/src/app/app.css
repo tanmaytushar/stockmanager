@@ -96,6 +96,16 @@
 .logout-button { padding: 6px 9px; border: 0; background: transparent; color: var(--muted); font-size: .7rem; font-weight: 700; }
 .logout-button:hover { color: var(--danger); }
 .page-content { width: min(1440px, 100%); margin: 0 auto; padding: 34px; }
+.copyright-notice {
+  position: fixed;
+  bottom: 12px;
+  left: calc(50% + 129px);
+  z-index: 19;
+  color: var(--muted);
+  font-size: .7rem;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
 .mobile-menu, .scrim { display: none; }
 
 @media (max-width: 860px) {
@@ -107,6 +117,7 @@
   .mobile-menu { display: inline-grid; }
   .topbar__context { display: none; }
   .page-content { padding: 24px 18px 40px; }
+  .copyright-notice { left: 50%; }
 }
 
 @media (max-width: 480px) {
