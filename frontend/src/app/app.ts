@@ -3,7 +3,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { AuthService } from './core/auth.service';
 import { IconComponent, IconName } from './shared/icon.component';
 import { AssistantChatComponent } from './shared/assistant-chat.component';
-import { ThemePreference, ThemeService } from './core/theme.service';
+import { ThemeService } from './core/theme.service';
 
 interface NavItem {
   label: string;
@@ -36,8 +36,8 @@ export class App {
     this.menuOpen.set(false);
   }
 
-  protected setTheme(value: string): void {
-    this.theme.setPreference(value as ThemePreference);
+  protected toggleTheme(): void {
+    this.theme.toggle();
   }
 
   protected logout(): void {

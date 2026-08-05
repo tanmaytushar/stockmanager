@@ -52,21 +52,18 @@
         <span>Market operations</span>
       </div>
       <div class="topbar__right">
-        <label class="theme-control">
-          <app-icon
-            [name]="theme.preference() === 'light' ? 'sun' : theme.preference() === 'dark' ? 'moon' : 'monitor'"
-          />
-          <span class="sr-only">Color theme</span>
-          <select
-            aria-label="Color theme"
-            [value]="theme.preference()"
-            (change)="setTheme($any($event.target).value)"
-          >
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-            <option value="system">System</option>
-          </select>
-        </label>
+        <button
+          class="theme-toggle"
+          [class.theme-toggle--dark]="theme.preference() === 'dark'"
+          type="button"
+          role="switch"
+          [attr.aria-checked]="theme.preference() === 'dark'"
+          [attr.aria-label]="theme.preference() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
+          (click)="toggleTheme()"
+        >
+          <span class="theme-toggle__sun"><app-icon name="sun" /></span>
+          <span class="theme-toggle__moon"><app-icon name="moon" /></span>
+        </button>
         <span class="environment-pill">Development</span>
         <span class="avatar" aria-label="Administrator">AD</span>
         <button class="logout-button" type="button" (click)="logout()">Log out</button>
@@ -80,5 +77,17 @@
   </div>
 </div>
 } @else {
+  <button
+    class="theme-toggle theme-toggle--login"
+    [class.theme-toggle--dark]="theme.preference() === 'dark'"
+    type="button"
+    role="switch"
+    [attr.aria-checked]="theme.preference() === 'dark'"
+    [attr.aria-label]="theme.preference() === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'"
+    (click)="toggleTheme()"
+  >
+    <span class="theme-toggle__sun"><app-icon name="sun" /></span>
+    <span class="theme-toggle__moon"><app-icon name="moon" /></span>
+  </button>
   <router-outlet />
 }

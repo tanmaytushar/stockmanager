@@ -91,10 +91,6 @@
 .topbar__context { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: .78rem; font-weight: 600; }
 .topbar__pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
 .topbar__right { display: flex; align-items: center; gap: 14px; }
-.theme-control { position: relative; display: inline-flex; height: 34px; align-items: center; gap: 7px; padding-left: 9px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-input); color: var(--muted); }
-.theme-control app-icon { width: 15px; height: 15px; pointer-events: none; }
-.theme-control select { height: 100%; padding: 0 28px 0 0; border: 0; background: transparent; color: var(--ink-secondary); font-size: .69rem; font-weight: 700; outline: 0; cursor: pointer; }
-.theme-control:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent); }
 .environment-pill { padding: 5px 9px; border: 1px solid var(--border); border-radius: 6px; color: var(--muted); font-size: .68rem; font-weight: 650; }
 .avatar { display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; background: var(--surface-soft); color: var(--ink-secondary); font-size: .69rem; font-weight: 750; }
 .logout-button { padding: 6px 9px; border: 0; background: transparent; color: var(--muted); font-size: .7rem; font-weight: 700; }
@@ -115,6 +111,5 @@
 
 @media (max-width: 480px) {
   .environment-pill { display: none; }
-  .theme-control { max-width: 96px; }
   .page-content { padding-inline: 14px; }
 }

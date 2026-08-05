@@ -10,12 +10,9 @@
   <script>
     (() => {
       const saved = localStorage.getItem('stock-manager-theme');
-      const preference = ['light', 'dark', 'system'].includes(saved) ? saved : 'system';
-      const theme = preference === 'system'
-        ? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-        : preference;
+      const theme = saved === 'dark' ? 'dark' : 'light';
       document.documentElement.dataset.theme = theme;
-      document.documentElement.dataset.themePreference = preference;
+      document.documentElement.dataset.themePreference = theme;
       document.documentElement.style.colorScheme = theme;
     })();
   </script>

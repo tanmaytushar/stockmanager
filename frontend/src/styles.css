@@ -73,6 +73,18 @@
 html { min-width: 320px; min-height: 100%; scroll-behavior: smooth; }
 body { min-width: 320px; min-height: 100%; margin: 0; background: var(--canvas); }
 .sr-only { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0, 0, 0, 0) !important; white-space: nowrap !important; }
+.theme-toggle { position: relative; display: grid; width: 70px; height: 34px; flex: 0 0 auto; grid-template-columns: 1fr 1fr; align-items: center; padding: 3px; border: 1px solid var(--border-strong); border-radius: 999px; background: var(--surface-soft); color: var(--muted); box-shadow: var(--shadow-sm); isolation: isolate; transition: border-color 160ms ease, background 160ms ease; }
+.theme-toggle::before { position: absolute; top: 3px; left: 3px; z-index: -1; width: 26px; height: 26px; border-radius: 50%; background: var(--surface-elevated); box-shadow: 0 2px 7px rgb(15 23 42 / 18%); content: ''; transition: transform 180ms cubic-bezier(.2, .8, .2, 1), background 160ms ease; }
+.theme-toggle--dark::before { transform: translateX(34px); }
+.theme-toggle > span { display: grid; place-items: center; transition: color 160ms ease; }
+.theme-toggle app-icon { width: 15px; height: 15px; pointer-events: none; }
+.theme-toggle__sun { color: var(--warning); }
+.theme-toggle__moon { color: var(--muted-light); }
+.theme-toggle--dark .theme-toggle__sun { color: var(--muted-light); }
+.theme-toggle--dark .theme-toggle__moon { color: #a5b4fc; }
+.theme-toggle:hover { border-color: var(--accent); }
+.theme-toggle:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 22%, transparent); outline-offset: 2px; }
+.theme-toggle--login { position: fixed; top: 20px; right: 20px; z-index: 10; }
 button, input, select, textarea { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { cursor: pointer; }
@@ -254,6 +266,10 @@ h1, h2, h3 { font-family: 'Manrope', 'DM Sans', sans-serif; }
   .data-table th, .data-table td { padding-inline: 13px; }
   .form-grid { grid-template-columns: 1fr; }
   .form-field--full { grid-column: auto; }
+}
+
+@media (max-width: 480px) {
+  .theme-toggle--login { top: 12px; right: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
