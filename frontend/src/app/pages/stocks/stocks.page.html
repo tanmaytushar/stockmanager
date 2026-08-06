@@ -22,6 +22,28 @@
         <input #search type="search" placeholder="Search by symbol or company…" [value]="query()" (input)="updateQuery(search.value)" />
       </label>
       <span class="toolbar__count">{{ filteredStocks().length }} {{ filteredStocks().length === 1 ? 'stock' : 'stocks' }}</span>
+      <div class="stock-sort-group" aria-label="Sort stocks">
+        <button
+          class="stock-sort"
+          [class.stock-sort--active]="sortField() === 'symbol' && sortDirection() !== 'none'"
+          type="button"
+          [attr.aria-label]="sortField() === 'symbol' && sortDirection() === 'asc' ? 'Sort symbols descending' : 'Sort symbols ascending'"
+          (click)="toggleSort('symbol')"
+        >
+          <span>Symbol</span>
+          <span class="stock-sort__arrow" aria-hidden="true">{{ sortField() === 'symbol' && sortDirection() !== 'none' ? (sortDirection() === 'asc' ? '↑' : '↓') : '↕' }}</span>
+        </button>
+        <button
+          class="stock-sort"
+          [class.stock-sort--active]="sortField() === 'price' && sortDirection() !== 'none'"
+          type="button"
+          [attr.aria-label]="sortField() === 'price' && sortDirection() === 'asc' ? 'Sort prices descending' : 'Sort prices ascending'"
+          (click)="toggleSort('price')"
+        >
+          <span>Price</span>
+          <span class="stock-sort__arrow" aria-hidden="true">{{ sortField() === 'price' && sortDirection() !== 'none' ? (sortDirection() === 'asc' ? '↑' : '↓') : '↕' }}</span>
+        </button>
+      </div>
     </div>
 
     @if (loading()) {

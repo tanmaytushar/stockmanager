@@ -4,3 +4,8 @@
 input[readonly] { background: var(--surface-soft); color: var(--muted); cursor: not-allowed; }
 .price--up { color: var(--success); }
 .price--down { color: var(--danger); }
+.stock-sort-group { display: inline-flex; padding: 3px; border: 1px solid var(--border); border-radius: 9px; background: var(--surface-soft); }
+.stock-sort { display: inline-flex; height: 28px; align-items: center; gap: 5px; padding: 0 8px; border: 0; border-radius: 6px; background: transparent; color: var(--muted); font-size: .65rem; font-weight: 700; transition: 140ms ease; }
+.stock-sort:hover { border-color: var(--border-strong); color: var(--ink); }
+.stock-sort--active { background: var(--surface-elevated); color: var(--ink); box-shadow: var(--shadow-sm); }
+.stock-sort__arrow { color: var(--accent-dark); font-size: .85rem; line-height: 1; }
