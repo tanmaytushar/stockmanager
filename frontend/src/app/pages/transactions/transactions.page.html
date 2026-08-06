@@ -19,6 +19,7 @@
     <div class="toolbar">
       <label class="search-box"><span class="visually-hidden">Search transactions</span><app-icon name="search" /><input #search type="search" placeholder="Search stock, customer, or ID…" [value]="query()" (input)="updateQuery(search.value)" /></label>
       <label class="filter-select"><span class="visually-hidden">Filter transaction type</span><select #typeSelect [value]="typeFilter()" (change)="updateType(typeSelect.value)"><option value="ALL">All types</option><option value="BUY">Buy only</option><option value="SELL">Sell only</option></select></label>
+      @if (!loading() && filteredTransactions().length) { <button class="button button--secondary toolbar__download" type="button" (click)="downloadPdf()"><app-icon name="report" /> Download PDF</button> }
       <span class="toolbar__count">{{ filteredTransactions().length }} results</span>
     </div>
 

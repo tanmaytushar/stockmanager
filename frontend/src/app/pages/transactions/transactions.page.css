@@ -11,4 +11,5 @@
 .status-label--buy { color: var(--success) !important; }
 .status-label--sell { color: var(--danger) !important; }
 .filter-select select { height: 38px; padding: 0 34px 0 11px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-input); color: var(--ink-secondary); font-size: .72rem; outline: none; }
+.toolbar__download { min-height: 38px; padding-inline: 11px; font-size: .72rem; }
 @media (max-width: 760px) { .transaction-stats { grid-template-columns: repeat(2, 1fr); } .transaction-stats > div:nth-child(2) { border-right: 0; } .transaction-stats > div:nth-child(-n+2) { border-bottom: 1px solid var(--border); } }
