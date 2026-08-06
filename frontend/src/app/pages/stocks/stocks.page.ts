@@ -2,12 +2,16 @@ import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { interval, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
 import { Stock, StockInput } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
 import { StockLogoComponent } from '../../shared/stock-logo.component';
+
+type SortDirection = 'none' | 'asc' | 'desc';
+type SortField = 'symbol' | 'price';
 
 @Component({
   selector: 'app-stocks-page',
@@ -19,11 +23,15 @@ export class StocksPage {
   private readonly api = inject(ApiService);
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly route = inject(ActivatedRoute);
   private readonly pageSize = 8;
 
   protected readonly stocks = signal<Stock[]>([]);
   protected readonly priceDirections = signal<Record<string, 'up' | 'down'>>({});
-  protected readonly query = signal('');
+  protected readonly query = signal(this.route.snapshot.queryParamMap.get('query') ?? '');
+  protected readonly lowOnly = signal(this.route.snapshot.queryParamMap.get('filter') === 'low');
+  protected readonly sortDirection = signal<SortDirection>('none');
+  protected readonly sortField = signal<SortField>('symbol');
   protected readonly page = signal(1);
   protected readonly loading = signal(true);
   protected readonly saving = signal(false);
@@ -42,10 +50,19 @@ export class StocksPage {
 
   protected readonly filteredStocks = computed(() => {
     const needle = this.query().trim().toLowerCase();
-    if (!needle) return this.stocks();
-    return this.stocks().filter((stock) =>
-      stock.stockSymbol.toLowerCase().includes(needle) || stock.stockName.toLowerCase().includes(needle),
+    const filtered = this.stocks().filter((stock) =>
+      (!this.lowOnly() || stock.availableQuantity <= 10)
+      && (!needle || stock.stockSymbol.toLowerCase().includes(needle) || stock.stockName.toLowerCase().includes(needle)),
     );
+    const direction = this.sortDirection();
+    if (direction === 'none') return filtered;
+    const field = this.sortField();
+    return [...filtered].sort((a, b) => {
+      const comparison = field === 'price'
+        ? a.currentPrice - b.currentPrice
+        : a.stockSymbol.localeCompare(b.stockSymbol);
+      return direction === 'asc' ? comparison : -comparison;
+    });
   });
   protected readonly totalPages = computed(() => Math.max(1, Math.ceil(this.filteredStocks().length / this.pageSize)));
   protected readonly pageItems = computed(() => {
@@ -58,6 +75,7 @@ export class StocksPage {
 
   constructor() {
     this.loadStocks();
+    if (this.route.snapshot.queryParamMap.get('create') === '1') setTimeout(() => this.openCreate());
     interval(1_000).pipe(
       switchMap(() => this.api.getStocks()),
       takeUntilDestroyed(this.destroyRef),
@@ -93,6 +111,16 @@ export class StocksPage {
 
   protected updateQuery(value: string): void {
     this.query.set(value);
+    this.page.set(1);
+  }
+
+  protected toggleSort(field: SortField): void {
+    if (this.sortField() !== field || this.sortDirection() === 'none') {
+      this.sortField.set(field);
+      this.sortDirection.set('asc');
+    } else {
+      this.sortDirection.update((direction) => direction === 'asc' ? 'desc' : 'asc');
+    }
     this.page.set(1);
   }
 

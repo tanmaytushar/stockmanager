@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
 import { Customer, CustomerInput } from '../../core/models';
@@ -15,10 +15,11 @@ import { IconComponent } from '../../shared/icon.component';
 export class CustomersPage {
   private readonly api = inject(ApiService);
   private readonly fb = inject(FormBuilder);
+  private readonly route = inject(ActivatedRoute);
   private readonly pageSize = 8;
 
   protected readonly customers = signal<Customer[]>([]);
-  protected readonly query = signal('');
+  protected readonly query = signal(this.route.snapshot.queryParamMap.get('query') ?? '');
   protected readonly page = signal(1);
   protected readonly loading = signal(true);
   protected readonly saving = signal(false);
@@ -51,7 +52,10 @@ export class CustomersPage {
   protected readonly firstItem = computed(() => this.filteredCustomers().length ? (Math.min(this.page(), this.totalPages()) - 1) * this.pageSize + 1 : 0);
   protected readonly lastItem = computed(() => Math.min(this.firstItem() + this.pageSize - 1, this.filteredCustomers().length));
 
-  constructor() { this.loadCustomers(); }
+  constructor() {
+    this.loadCustomers();
+    if (this.route.snapshot.queryParamMap.get('create') === '1') setTimeout(() => this.openCreate());
+  }
 
   protected loadCustomers(): void {
     this.loading.set(true);

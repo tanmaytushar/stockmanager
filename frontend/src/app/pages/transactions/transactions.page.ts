@@ -1,6 +1,6 @@
 import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
 import { StockTransaction, TransactionType } from '../../core/models';
@@ -17,10 +17,11 @@ type TypeFilter = 'ALL' | TransactionType;
 })
 export class TransactionsPage {
   private readonly api = inject(ApiService);
+  private readonly route = inject(ActivatedRoute);
   private readonly pageSize = 10;
 
   protected readonly transactions = signal<StockTransaction[]>([]);
-  protected readonly query = signal('');
+  protected readonly query = signal(this.route.snapshot.queryParamMap.get('query') ?? '');
   protected readonly typeFilter = signal<TypeFilter>('ALL');
   protected readonly page = signal(1);
   protected readonly loading = signal(true);
@@ -67,4 +68,82 @@ export class TransactionsPage {
   protected updateType(value: string): void { this.typeFilter.set(value as TypeFilter); this.page.set(1); }
   protected previousPage(): void { this.page.update((value) => Math.max(1, value - 1)); }
   protected nextPage(): void { this.page.update((value) => Math.min(this.totalPages(), value + 1)); }
+
+  protected downloadPdf(): void {
+    const transactions = this.filteredTransactions();
+    if (!transactions.length) return;
+
+    const filter = this.typeFilter();
+    const title = filter === 'ALL' ? 'Transaction ledger' : `${filter} transaction ledger`;
+    const generatedAt = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date());
+    const lines = [
+      title,
+      `Generated ${generatedAt}`,
+      '',
+      'ID | Type | Stock | Customer | Quantity | Price | Total | Date',
+      ...transactions.map((transaction) => [
+        `#${transaction.transactionId}`,
+        transaction.transactionType,
+        transaction.stockSymbol,
+        transaction.customerName || `Customer #${transaction.customerId}`,
+        this.number(transaction.quantity),
+        this.currency(transaction.price),
+        this.currency(transaction.quantity * transaction.price),
+        new Intl.DateTimeFormat('en-US', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(transaction.transactionDate)),
+      ].join(' | ')),
+    ];
+
+    const pdf = this.createPdf(lines);
+    const url = URL.createObjectURL(new Blob([pdf], { type: 'application/pdf' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `transactions-${filter.toLowerCase()}.pdf`;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url));
+  }
+
+  private createPdf(lines: string[]): string {
+    const header = lines.slice(0, 4);
+    const records = lines.slice(4);
+    const recordsPerPage = 42;
+    const pages = Array.from({ length: Math.ceil(records.length / recordsPerPage) }, (_, index) =>
+      [...header, ...records.slice(index * recordsPerPage, (index + 1) * recordsPerPage)],
+    );
+    const pageObjectIds = pages.map((_, index) => 4 + index * 2);
+    const objects = [
+      '<< /Type /Catalog /Pages 2 0 R >>',
+      `<< /Type /Pages /Kids [${pageObjectIds.map((id) => `${id} 0 R`).join(' ')}] /Count ${pages.length} >>`,
+      '<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>',
+    ];
+
+    pages.forEach((page, index) => {
+      const content = page.map((line, lineIndex) => {
+        const fontSize = lineIndex === 0 ? 16 : 8;
+        const move = lineIndex === 0 ? '54 800 Td' : '0 -15 Td';
+        return `/F1 ${fontSize} Tf\n${move}\n(${this.pdfText(line)}) Tj`;
+      }).join('\n');
+      const pageId = pageObjectIds[index];
+      objects.push(`<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 842] /Resources << /Font << /F1 3 0 R >> >> /Contents ${pageId + 1} 0 R >>`);
+      objects.push(`<< /Length ${content.length} >>\nstream\nBT\n${content}\nET\nendstream`);
+    });
+
+    let pdf = '%PDF-1.4\n';
+    const offsets = [0];
+    objects.forEach((object, index) => {
+      offsets.push(pdf.length);
+      pdf += `${index + 1} 0 obj\n${object}\nendobj\n`;
+    });
+    const xrefOffset = pdf.length;
+    pdf += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+    pdf += offsets.slice(1).map((offset) => `${String(offset).padStart(10, '0')} 00000 n \n`).join('');
+    pdf += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
+    return pdf;
+  }
+
+  private pdfText(value: string): string {
+    return value.replace(/[\\()]/g, '\\$&').replace(/[^\x20-\x7E]/g, '?');
+  }
+
+  private number(value: number): string { return new Intl.NumberFormat('en-US').format(value); }
+  private currency(value: number): string { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value); }
 }

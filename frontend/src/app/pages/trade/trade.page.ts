@@ -2,7 +2,7 @@ import { CurrencyPipe, DecimalPipe } from '@angular/common';
 import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { forkJoin, interval, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
@@ -19,13 +19,17 @@ export class TradePage {
   private readonly api = inject(ApiService);
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly route = inject(ActivatedRoute);
+  private readonly presetCustomerId = Number(this.route.snapshot.queryParamMap.get('customerId')) || 0;
+  private readonly presetStock = this.route.snapshot.queryParamMap.get('stock') ?? '';
+  private readonly presetType: TransactionType = this.route.snapshot.queryParamMap.get('type') === 'SELL' ? 'SELL' : 'BUY';
 
   protected readonly customers = signal<Customer[]>([]);
   protected readonly stocks = signal<Stock[]>([]);
   protected readonly portfolio = signal<Portfolio | null>(null);
-  protected readonly tradeType = signal<TransactionType>('BUY');
-  protected readonly customerId = signal<number | null>(null);
-  protected readonly stockSymbol = signal('');
+  protected readonly tradeType = signal<TransactionType>(this.presetType);
+  protected readonly customerId = signal<number | null>(this.presetCustomerId || null);
+  protected readonly stockSymbol = signal(this.presetStock);
   protected readonly quantity = signal(1);
   protected readonly loading = signal(true);
   protected readonly portfolioLoading = signal(false);
@@ -34,8 +38,8 @@ export class TradePage {
   protected readonly success = signal('');
 
   protected readonly tradeForm = this.fb.nonNullable.group({
-    customerId: [0, [Validators.required, Validators.min(1)]],
-    stockSymbol: ['', Validators.required],
+    customerId: [this.presetCustomerId, [Validators.required, Validators.min(1)]],
+    stockSymbol: [this.presetStock, Validators.required],
     quantity: [1, [Validators.required, Validators.min(1), Validators.pattern(/^\d+$/)]],
   });
 
@@ -67,7 +71,11 @@ export class TradePage {
     forkJoin({ customers: this.api.getCustomers(), stocks: this.api.getStocks() })
       .pipe(finalize(() => this.loading.set(false)))
       .subscribe({
-        next: ({ customers, stocks }) => { this.customers.set(customers); this.stocks.set(stocks); },
+        next: ({ customers, stocks }) => {
+          this.customers.set(customers);
+          this.stocks.set(stocks);
+          if (this.presetCustomerId) this.onCustomerChange(String(this.presetCustomerId));
+        },
         error: (error: Error) => this.error.set(error.message),
       });
   }

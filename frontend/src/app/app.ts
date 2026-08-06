@@ -4,6 +4,7 @@ import { AuthService } from './core/auth.service';
 import { IconComponent, IconName } from './shared/icon.component';
 import { AssistantChatComponent } from './shared/assistant-chat.component';
 import { ThemeService } from './core/theme.service';
+import { CommandPaletteComponent } from './shared/command-palette/command-palette.component';
 
 interface NavItem {
   label: string;
@@ -13,7 +14,7 @@ interface NavItem {
 
 @Component({
   selector: 'app-root',
-  imports: [RouterLink, RouterLinkActive, RouterOutlet, IconComponent, AssistantChatComponent],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet, IconComponent, AssistantChatComponent, CommandPaletteComponent],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

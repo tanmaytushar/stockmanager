@@ -1,0 +1,101 @@
+<button class="stockpilot-trigger" type="button" aria-label="Open StockPilot" (click)="openPalette(false)">
+  <app-icon name="search" />
+  <span>Search or run a command…</span>
+  <kbd>{{ shortcutLabel }}</kbd>
+</button>
+
+@if (open()) {
+  <div class="palette-backdrop" role="presentation" (click)="closePalette()">
+    <section class="palette" role="dialog" aria-modal="true" aria-labelledby="stockpilot-title" (click)="$event.stopPropagation()">
+      <header class="palette-search">
+        <span class="palette-search__brand" aria-hidden="true"><app-icon [name]="aiMode() ? 'database' : 'search'" /></span>
+        <div class="palette-search__field">
+          <span id="stockpilot-title">{{ aiMode() ? 'Ask StockPilot' : 'StockPilot' }}</span>
+          <input
+            #searchInput
+            type="search"
+            autocomplete="off"
+            [placeholder]="aiMode() ? 'Ask about stocks, portfolios, or activity…' : 'Search stocks, customers, transactions, or commands…'"
+            aria-label="StockPilot search"
+            [value]="query()"
+            (input)="updateQuery(searchInput.value)"
+            (keydown)="handleSearchKey($event)"
+          />
+        </div>
+        @if (aiMode()) { <span class="mode-pill">AI mode</span> }
+        <kbd>Esc</kbd>
+      </header>
+
+      @if (warning()) {
+        <div class="palette-warning" role="status"><app-icon name="alert" /><span>{{ warning() }}</span><button type="button" (click)="retry()">Retry</button></div>
+      }
+
+      <div class="palette-body">
+        <div class="palette-results" role="listbox" aria-label="StockPilot results">
+          @if (loading() && !query()) {
+            <div class="skeleton-list" aria-label="Loading searchable workspace data">
+              @for (item of [1, 2, 3]; track item) { <span></span> }
+            </div>
+          }
+
+          @for (section of sections(); track section.label) {
+            <section class="result-group">
+              <h3>{{ section.label }}</h3>
+              @for (result of section.results; track result.id) {
+                <button
+                  class="result-row"
+                  [class.result-row--selected]="selected()?.id === result.id"
+                  type="button"
+                  role="option"
+                  [attr.aria-selected]="selected()?.id === result.id"
+                  (mouseenter)="selectResult(result)"
+                  (focus)="selectResult(result)"
+                  (click)="execute(result)"
+                >
+                  <span class="result-row__icon"><app-icon [name]="result.icon" /></span>
+                  <span class="result-row__copy"><strong>{{ result.title }}</strong><small>{{ result.subtitle }}</small></span>
+                  @if (result.badge) {
+                    <span class="result-badge" [class.result-badge--success]="result.tone === 'success'" [class.result-badge--warning]="result.tone === 'warning'" [class.result-badge--danger]="result.tone === 'danger'">
+                      @if (result.tone === 'success') { <app-icon name="check" /> }
+                      @if (result.tone === 'warning' || result.tone === 'danger') { <app-icon name="alert" /> }
+                      {{ result.badge }}
+                    </span>
+                  }
+                </button>
+              }
+            </section>
+          } @empty {
+            @if (!loading()) {
+              <div class="palette-empty"><app-icon name="search" /><strong>No matching results</strong><span>Try a customer name, stock symbol, transaction ID, or application command.</span></div>
+            }
+          }
+        </div>
+
+        <aside class="palette-preview" aria-label="Selected result preview">
+          @if (aiLoading()) {
+            <div class="ai-state"><span class="ai-orbit"><app-icon name="database" /></span><strong>StockPilot is thinking</strong><p>Reviewing current workspace data…</p></div>
+          } @else if (aiAnswer()) {
+            <div class="preview-content"><span class="preview-eyebrow">AI answer</span><h3>{{ query() }}</h3><p class="ai-answer">{{ aiAnswer() }}</p><small class="preview-source">Source: Stock Manager workspace APIs</small></div>
+          } @else if (selected(); as result) {
+            <div class="preview-content">
+              <div class="preview-heading"><span class="preview-icon"><app-icon [name]="result.icon" /></span><button class="pin-button" type="button" [attr.aria-label]="isPinned(result) ? 'Unpin result' : 'Pin result'" (click)="togglePin(result)">{{ isPinned(result) ? 'Pinned' : 'Pin' }}</button></div>
+              <span class="preview-eyebrow">{{ result.category }}</span>
+              <h3>{{ result.previewTitle || result.title }}</h3>
+              <p>{{ result.subtitle }}</p>
+              @if (result.previewLines?.length) { <dl>@for (line of result.previewLines; track line) { <div><dt><app-icon name="check" /></dt><dd>{{ line }}</dd></div> }</dl> }
+              @if (result.actions?.length) { <div class="preview-actions">@for (action of result.actions; track action.label) { <button type="button" (click)="executeAction(action)">{{ action.label }}</button> }</div> }
+              @else { <div class="preview-actions"><button type="button" (click)="execute(result)">{{ result.action === 'ask-ai' ? 'Ask assistant' : 'Open' }}</button></div> }
+            </div>
+          } @else {
+            <div class="preview-placeholder"><span class="preview-logo">SP</span><strong>StockPilot</strong><p>Search, navigate, inspect records, and prepare safe actions from one place.</p></div>
+          }
+        </aside>
+      </div>
+
+      <footer class="palette-footer">
+        <span><kbd>↑</kbd><kbd>↓</kbd> Navigate</span><span><kbd>↵</kbd> Select</span><span><kbd>Esc</kbd> Close</span>
+        <button type="button" (click)="aiMode.set(!aiMode()); updateQuery(query())"><app-icon name="database" /> {{ aiMode() ? 'Search mode' : 'AI mode' }}</button>
+      </footer>
+    </section>
+  </div>
+}
