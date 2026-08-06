@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ofss.stock.dto.PortfolioResponse;
 import com.ofss.stock.dto.CustomerResponse;
 import com.ofss.stock.dto.AssistantChatResponse;
+import com.ofss.stock.dto.AssistantCustomerProposal;
 import com.ofss.stock.dto.AssistantTradeProposal;
 import com.ofss.stock.dto.StockResponse;
 import com.ofss.stock.dto.TransactionResponse;
@@ -59,22 +60,32 @@ public class AssistantService {
                             + "hash headings, asterisks, backticks, or pipe characters. For lists, put one item per line beginning with a bullet (•). "
                             + "Be concise, state when data is unavailable, "
                             + "and do not give investment advice or recommend buying or selling securities. If an admin clearly asks to buy or sell, "
-                            + "use prepare_customer_trade with the supplied customer ID, stock symbol, and whole-number quantity. This only prepares a trade; it never executes one."),
+                            + "use prepare_customer_trade with the supplied customer ID, stock symbol, and whole-number quantity. If an admin asks to register a customer and supplies a full name and email address, use prepare_customer_creation. These actions only prepare a confirmation; they never execute directly."),
                     Map.of("role", "user", "content", "WORKSPACE DATA:\n" + workspaceContext()
                             + "\n\nADMIN QUESTION:\n" + question.trim())));
-            payload.put("tools", List.of(Map.of("type", "function", "function", Map.of(
-                    "name", "prepare_customer_trade",
-                    "description", "Prepare a requested customer stock purchase or sale for the administrator to confirm.",
-                    "parameters", Map.of(
-                            "type", "object",
-                            "properties", Map.of(
-                                    "type", Map.of("type", "string", "enum", List.of("BUY", "SELL")),
-                                    "customerId", Map.of("type", "integer"),
-                                    "stockSymbol", Map.of("type", "string"),
-                                    "quantity", Map.of("type", "integer", "minimum", 1)),
-                            "required", List.of("type", "customerId", "stockSymbol", "quantity"),
-                            "additionalProperties", false)))));
-
+            payload.put("tools", List.of(
+                    Map.of("type", "function", "function", Map.of(
+                            "name", "prepare_customer_trade",
+                            "description", "Prepare a requested customer stock purchase or sale for the administrator to confirm.",
+                            "parameters", Map.of(
+                                    "type", "object",
+                                    "properties", Map.of(
+                                            "type", Map.of("type", "string", "enum", List.of("BUY", "SELL")),
+                                            "customerId", Map.of("type", "integer"),
+                                            "stockSymbol", Map.of("type", "string"),
+                                            "quantity", Map.of("type", "integer", "minimum", 1)),
+                                    "required", List.of("type", "customerId", "stockSymbol", "quantity"),
+                                    "additionalProperties", false))),
+                    Map.of("type", "function", "function", Map.of(
+                            "name", "prepare_customer_creation",
+                            "description", "Prepare a new customer registration when the administrator provides both the customer's full name and email address.",
+                            "parameters", Map.of(
+                                    "type", "object",
+                                    "properties", Map.of(
+                                            "customerName", Map.of("type", "string"),
+                                            "emailAddress", Map.of("type", "string", "format", "email")),
+                                    "required", List.of("customerName", "emailAddress"),
+                                    "additionalProperties", false)))));
             HttpRequest request = HttpRequest.newBuilder(URI.create(API_URL))
                     .timeout(Duration.ofSeconds(30))
                     .header("Authorization", "Bearer " + apiKey)
@@ -88,14 +99,17 @@ public class AssistantService {
             JsonNode root = objectMapper.readTree(response.body());
             JsonNode message = root.path("choices").path(0).path("message");
             AssistantTradeProposal proposal = tradeProposal(message);
+            AssistantCustomerProposal customerProposal = customerProposal(message);
             String reply = message.path("content").asText();
             if (reply.isBlank() && proposal != null) {
                 reply = "I prepared a " + proposal.type().name().toLowerCase() + " order for confirmation.";
+            } else if (reply.isBlank() && customerProposal != null) {
+                reply = "I prepared the customer registration for confirmation.";
             }
             if (reply.isBlank()) {
                 throw new BusinessRuleException("The AI assistant returned an empty response. Please try again.");
             }
-            return new AssistantChatResponse(reply, proposal);
+            return new AssistantChatResponse(reply, proposal, customerProposal);
         } catch (IOException e) {
             throw new BusinessRuleException("Unable to prepare the AI assistant request.");
         } catch (InterruptedException e) {
@@ -105,7 +119,7 @@ public class AssistantService {
     }
 
     private AssistantTradeProposal tradeProposal(JsonNode message) {
-        JsonNode function = message.path("tool_calls").path(0).path("function");
+        JsonNode function = functionCall(message, "prepare_customer_trade");
         if (!"prepare_customer_trade".equals(function.path("name").asText())) {
             return null;
         }
@@ -124,6 +138,33 @@ public class AssistantService {
         }
     }
 
+    private AssistantCustomerProposal customerProposal(JsonNode message) {
+        JsonNode function = functionCall(message, "prepare_customer_creation");
+        if (function.isMissingNode()) {
+            return null;
+        }
+        try {
+            JsonNode arguments = objectMapper.readTree(function.path("arguments").asText());
+            String customerName = arguments.path("customerName").asText().trim();
+            String emailAddress = arguments.path("emailAddress").asText().trim().toLowerCase();
+            if (customerName.isBlank() || emailAddress.isBlank()) {
+                return null;
+            }
+            return new AssistantCustomerProposal(customerName, emailAddress);
+        } catch (IOException exception) {
+            return null;
+        }
+    }
+
+    private JsonNode functionCall(JsonNode message, String functionName) {
+        for (JsonNode toolCall : message.path("tool_calls")) {
+            JsonNode function = toolCall.path("function");
+            if (functionName.equals(function.path("name").asText())) {
+                return function;
+            }
+        }
+        return objectMapper.missingNode();
+    }
     private Map<String, Object> workspaceContext() {
         List<StockResponse> stocks = reportService.allStocks();
         List<CustomerResponse> customers = reportService.allCustomers();

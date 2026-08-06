@@ -29,8 +29,9 @@
 .portfolio-total span { color: #94a3b8; font-size: .65rem; }
 .portfolio-total strong { margin-top: 4px; font-family: 'Manrope', sans-serif; font-size: 1.15rem; }
 .holding-list { padding: 0 20px 12px; }
-.holding-list > div { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--row-border); font-size: .72rem; }
+.holding-list > div { display: flex; align-items: center; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--row-border); font-size: .72rem; transition: transform 160ms ease, box-shadow 160ms ease; }
 .holding-list > div:last-child { border: 0; }
+@media (hover: hover) { .holding-list > div:hover { position: relative; z-index: 1; box-shadow: 0 4px 14px rgb(15 23 42 / 7%); transform: scale(1.015); } }
 .holding-list span strong, .holding-list span small { display: block; }
 .holding-list span small { margin-top: 2px; color: var(--muted); font-size: .63rem; font-weight: 400; }
 .trade-note { display: flex; gap: 12px; padding: 16px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--accent-soft); color: var(--ink-secondary); }

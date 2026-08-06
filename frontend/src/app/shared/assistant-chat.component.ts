@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../core/api.service';
-import { AssistantTradeProposal, TradeRequest } from '../core/models';
+import { AssistantCustomerProposal, AssistantTradeProposal, CustomerInput, TradeRequest } from '../core/models';
 import { IconComponent } from './icon.component';
 
 interface ChatMessage {
@@ -21,7 +21,9 @@ export class AssistantChatComponent {
   protected readonly loading = signal(false);
   protected readonly draft = signal('');
   protected readonly pendingTrade = signal<AssistantTradeProposal | null>(null);
+  protected readonly pendingCustomer = signal<AssistantCustomerProposal | null>(null);
   protected readonly submittingTrade = signal(false);
+  protected readonly submittingCustomer = signal(false);
   protected readonly messages = signal<ChatMessage[]>([
     { role: 'assistant', text: 'Hi — I can summarize stocks, recent trading activity, and portfolio totals from this workspace.' },
   ]);
@@ -52,9 +54,10 @@ export class AssistantChatComponent {
     this.draft.set('');
     this.loading.set(true);
     this.api.chatWithAssistant(text).subscribe({
-      next: ({ reply, tradeProposal }) => {
+      next: ({ reply, tradeProposal, customerProposal }) => {
         this.messages.update((messages) => [...messages, { role: 'assistant', text: reply }]);
         this.pendingTrade.set(tradeProposal);
+        this.pendingCustomer.set(customerProposal);
       },
       error: (error: Error) => {
         this.messages.update((messages) => [...messages, { role: 'assistant', text: error.message }]);
@@ -93,5 +96,34 @@ export class AssistantChatComponent {
 
   protected cancelTrade(): void {
     this.pendingTrade.set(null);
+  }
+
+  protected confirmCustomer(): void {
+    const proposal = this.pendingCustomer();
+    if (!proposal || this.submittingCustomer()) return;
+
+    const request: CustomerInput = {
+      customerName: proposal.customerName,
+      emailAddress: proposal.emailAddress,
+    };
+    this.submittingCustomer.set(true);
+    this.api.createCustomer(request).subscribe({
+      next: (customer) => {
+        this.messages.update((messages) => [...messages, {
+          role: 'assistant',
+          text: `Customer ${customer.customerName} was registered with account #${customer.customerId}.`,
+        }]);
+        this.pendingCustomer.set(null);
+      },
+      error: (error: Error) => {
+        this.messages.update((messages) => [...messages, { role: 'assistant', text: error.message }]);
+        this.submittingCustomer.set(false);
+      },
+      complete: () => this.submittingCustomer.set(false),
+    });
+  }
+
+  protected cancelCustomer(): void {
+    this.pendingCustomer.set(null);
   }
 }

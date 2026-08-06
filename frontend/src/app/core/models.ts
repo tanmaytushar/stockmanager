@@ -79,6 +79,7 @@ export interface ApiProblem {
 export interface AssistantChatResponse {
   reply: string;
   tradeProposal: AssistantTradeProposal | null;
+  customerProposal: AssistantCustomerProposal | null;
 }
 
 export interface AssistantTradeProposal {
@@ -86,6 +87,11 @@ export interface AssistantTradeProposal {
   customerId: number;
   stockSymbol: string;
   quantity: number;
+}
+
+export interface AssistantCustomerProposal {
+  customerName: string;
+  emailAddress: string;
 }
 
 export interface ReportBundle {

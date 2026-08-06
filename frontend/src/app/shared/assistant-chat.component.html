@@ -36,6 +36,21 @@
       }
     </div>
 
+      @if (pendingCustomer(); as customer) {
+        <section class="trade-confirmation">
+          <span class="trade-confirmation__eyebrow">Confirmation required</span>
+          <strong>Register {{ customer.customerName }}</strong>
+          <span>{{ customer.emailAddress }}</span>
+          <p>This creates a new customer account immediately.</p>
+          <div class="trade-confirmation__actions">
+            <button type="button" class="trade-cancel" (click)="cancelCustomer()" [disabled]="submittingCustomer()">Cancel</button>
+            <button type="button" class="trade-confirm" (click)="confirmCustomer()" [disabled]="submittingCustomer()">
+              {{ submittingCustomer() ? 'Submittingâ€¦' : 'Confirm registration' }}
+            </button>
+          </div>
+        </section>
+      }
+
     <form class="assistant-composer" (ngSubmit)="send()">
       <textarea
         [ngModel]="draft()"
