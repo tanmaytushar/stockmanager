@@ -6,6 +6,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { forkJoin, interval, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
+import { WorkspaceRefreshService } from '../../core/workspace-refresh.service';
 import { Customer, Portfolio, Stock, TradeRequest, TransactionType } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
 
@@ -17,6 +18,7 @@ import { IconComponent } from '../../shared/icon.component';
 })
 export class TradePage {
   private readonly api = inject(ApiService);
+  private readonly workspaceRefresh = inject(WorkspaceRefreshService);
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly route = inject(ActivatedRoute);
@@ -56,6 +58,7 @@ export class TradePage {
 
   constructor() {
     this.loadOptions();
+    this.workspaceRefresh.updates$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.loadOptions());
     interval(1_000).pipe(
       switchMap(() => this.api.getStocks()),
       takeUntilDestroyed(this.destroyRef),

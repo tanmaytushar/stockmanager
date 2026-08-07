@@ -1,9 +1,11 @@
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, interval, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
+import { WorkspaceRefreshService } from '../../core/workspace-refresh.service';
 import { Customer, Portfolio } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
 
@@ -15,6 +17,8 @@ import { IconComponent } from '../../shared/icon.component';
 })
 export class PortfoliosPage {
   private readonly api = inject(ApiService);
+  private readonly workspaceRefresh = inject(WorkspaceRefreshService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly route = inject(ActivatedRoute);
   private readonly pageSize = 6;
 
@@ -47,7 +51,17 @@ export class PortfoliosPage {
     return this.filteredPortfolios().slice((safePage - 1) * this.pageSize, safePage * this.pageSize);
   });
 
-  constructor() { this.loadPortfolios(); }
+  constructor() {
+    this.loadPortfolios();
+    this.workspaceRefresh.updates$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.loadPortfolios());
+    interval(1_000).pipe(
+      switchMap(() => this.api.getPortfolios()),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (portfolios) => this.portfolios.set(portfolios),
+      error: (error: Error) => this.error.set(error.message),
+    });
+  }
 
   protected loadPortfolios(): void {
     this.loading.set(true);

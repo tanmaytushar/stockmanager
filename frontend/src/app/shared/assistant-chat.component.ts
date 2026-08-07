@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../core/api.service';
+import { WorkspaceRefreshService } from '../core/workspace-refresh.service';
 import { AssistantCustomerProposal, AssistantTradeProposal, CustomerInput, TradeRequest } from '../core/models';
 import { IconComponent } from './icon.component';
 
@@ -17,6 +18,7 @@ interface ChatMessage {
 })
 export class AssistantChatComponent {
   private readonly api = inject(ApiService);
+  private readonly workspaceRefresh = inject(WorkspaceRefreshService);
   protected readonly open = signal(false);
   protected readonly loading = signal(false);
   protected readonly draft = signal('');
@@ -85,6 +87,7 @@ export class AssistantChatComponent {
           text: `${proposal.type === 'BUY' ? 'Purchase' : 'Sale'} completed for customer #${proposal.customerId}. Transaction #${transaction.transactionId} was recorded.`,
         }]);
         this.pendingTrade.set(null);
+        this.workspaceRefresh.notify();
       },
       error: (error: Error) => {
         this.messages.update((messages) => [...messages, { role: 'assistant', text: error.message }]);
@@ -114,6 +117,7 @@ export class AssistantChatComponent {
           text: `Customer ${customer.customerName} was registered with account #${customer.customerId}.`,
         }]);
         this.pendingCustomer.set(null);
+        this.workspaceRefresh.notify();
       },
       error: (error: Error) => {
         this.messages.update((messages) => [...messages, { role: 'assistant', text: error.message }]);

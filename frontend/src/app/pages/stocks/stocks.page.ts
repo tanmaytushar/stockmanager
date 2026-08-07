@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { interval, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
+import { WorkspaceRefreshService } from '../../core/workspace-refresh.service';
 import { Stock, StockInput } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
 import { StockLogoComponent } from '../../shared/stock-logo.component';
@@ -21,6 +22,7 @@ type SortField = 'symbol' | 'price';
 })
 export class StocksPage {
   private readonly api = inject(ApiService);
+  private readonly workspaceRefresh = inject(WorkspaceRefreshService);
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
   private readonly route = inject(ActivatedRoute);
@@ -75,6 +77,7 @@ export class StocksPage {
 
   constructor() {
     this.loadStocks();
+    this.workspaceRefresh.updates$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.loadStocks());
     if (this.route.snapshot.queryParamMap.get('create') === '1') setTimeout(() => this.openCreate());
     interval(1_000).pipe(
       switchMap(() => this.api.getStocks()),

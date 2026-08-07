@@ -1,8 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
+import { WorkspaceRefreshService } from '../../core/workspace-refresh.service';
 import { Customer, CustomerInput } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
 
@@ -14,6 +16,8 @@ import { IconComponent } from '../../shared/icon.component';
 })
 export class CustomersPage {
   private readonly api = inject(ApiService);
+  private readonly workspaceRefresh = inject(WorkspaceRefreshService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly fb = inject(FormBuilder);
   private readonly route = inject(ActivatedRoute);
   private readonly pageSize = 8;
@@ -54,6 +58,7 @@ export class CustomersPage {
 
   constructor() {
     this.loadCustomers();
+    this.workspaceRefresh.updates$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.loadCustomers());
     if (this.route.snapshot.queryParamMap.get('create') === '1') setTimeout(() => this.openCreate());
   }
 

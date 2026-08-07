@@ -1,8 +1,10 @@
 import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
+import { WorkspaceRefreshService } from '../../core/workspace-refresh.service';
 import { StockTransaction, TransactionType } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
 import { StockLogoComponent } from '../../shared/stock-logo.component';
@@ -17,6 +19,8 @@ type TypeFilter = 'ALL' | TransactionType;
 })
 export class TransactionsPage {
   private readonly api = inject(ApiService);
+  private readonly workspaceRefresh = inject(WorkspaceRefreshService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly route = inject(ActivatedRoute);
   private readonly pageSize = 10;
 
@@ -54,7 +58,10 @@ export class TransactionsPage {
   protected readonly firstItem = computed(() => this.filteredTransactions().length ? (Math.min(this.page(), this.totalPages()) - 1) * this.pageSize + 1 : 0);
   protected readonly lastItem = computed(() => Math.min(this.firstItem() + this.pageSize - 1, this.filteredTransactions().length));
 
-  constructor() { this.loadTransactions(); }
+  constructor() {
+    this.loadTransactions();
+    this.workspaceRefresh.updates$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.loadTransactions());
+  }
 
   protected loadTransactions(): void {
     this.loading.set(true);

@@ -1,9 +1,11 @@
 import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { forkJoin, interval, switchMap } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
+import { WorkspaceRefreshService } from '../../core/workspace-refresh.service';
 import { Customer, Portfolio, Stock, StockTransaction } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
 import { StockLogoComponent } from '../../shared/stock-logo.component';
@@ -16,6 +18,8 @@ import { StockLogoComponent } from '../../shared/stock-logo.component';
 })
 export class DashboardPage {
   private readonly api = inject(ApiService);
+  private readonly workspaceRefresh = inject(WorkspaceRefreshService);
+  private readonly destroyRef = inject(DestroyRef);
 
   protected readonly stocks = signal<Stock[]>([]);
   protected readonly customers = signal<Customer[]>([]);
@@ -41,6 +45,14 @@ export class DashboardPage {
 
   constructor() {
     this.loadDashboard();
+    this.workspaceRefresh.updates$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.loadDashboard());
+    interval(1_000).pipe(
+      switchMap(() => this.api.getPortfolios()),
+      takeUntilDestroyed(this.destroyRef),
+    ).subscribe({
+      next: (portfolios) => this.portfolios.set(portfolios),
+      error: (error: Error) => this.error.set(error.message),
+    });
   }
 
   protected loadDashboard(): void {

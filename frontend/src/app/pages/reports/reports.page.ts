@@ -1,7 +1,9 @@
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, DestroyRef, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { finalize } from 'rxjs/operators';
 import { ApiService } from '../../core/api.service';
+import { WorkspaceRefreshService } from '../../core/workspace-refresh.service';
 import { ReportBundle } from '../../core/models';
 import { IconComponent } from '../../shared/icon.component';
 
@@ -13,6 +15,8 @@ import { IconComponent } from '../../shared/icon.component';
 })
 export class ReportsPage {
   private readonly api = inject(ApiService);
+  private readonly workspaceRefresh = inject(WorkspaceRefreshService);
+  private readonly destroyRef = inject(DestroyRef);
 
   protected readonly reports = signal<ReportBundle | null>(null);
   protected readonly loading = signal(true);
@@ -24,7 +28,10 @@ export class ReportsPage {
     return !!reports && Object.values(reports).every((value) => value === null);
   });
 
-  constructor() { this.loadReports(); }
+  constructor() {
+    this.loadReports();
+    this.workspaceRefresh.updates$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.loadReports());
+  }
 
   protected loadReports(): void {
     this.loading.set(true);
